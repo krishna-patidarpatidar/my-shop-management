@@ -21,7 +21,7 @@ const CustomerForm: React.FC<Props> = ({ formikProps }) => {
   const { values, handleChange, handleBlur, isSubmitting } = formikProps;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 via-purple-100 to-blue-100 bg-transparent">
+    <div className=" flex items-center justify-center">
       <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
         <h1 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Customer Data</h1>
         

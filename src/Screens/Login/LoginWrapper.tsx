@@ -27,7 +27,7 @@ const LoginWrapper: React.FC = () => {
         onSubmit={(values, { setSubmitting }) => {
           login(values)
             .then((res: any) => {
-              if (res.data.status) {
+               if (res.data.status) {
                 localStorage.setItem('auth', res.data.token);
                 Toast.successMsg(res.data.msg);
                 navigate('/add-customer');

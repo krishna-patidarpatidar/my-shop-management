@@ -3,23 +3,32 @@ import LoginWrapper from "../Screens/Login/LoginWrapper";
 import CustomerAddWrapper from "../Screens/Customers/Add/CustomerAddWrapper";
 import CustomerListWrapper from "../Screens/Customers/List/CustomerListWrapper";
 import CustomerEditWrapper from "../Screens/Customers/Edit/CustomerEditWrapper";
+import ProjectLayout from "../Layout/ProjectLayout";
 
 const pageRoute = createBrowserRouter([
     {
-        path: '/', 
-        element: <LoginWrapper/>
+        path: '/',
+        element: <LoginWrapper />
     },
     {
-        path: '/add-customer', 
-        element: <CustomerAddWrapper/>
+        path: '/admin',
+        element: <ProjectLayout />
     },
+
+
     {
-        path: '/edit-customer/:id', 
-        element: <CustomerEditWrapper/>
-    },
-    {
-        path: '/customer', 
-        element: <CustomerListWrapper/>
+        path: '/customer',
+        element: <CustomerListWrapper />,
+        children: ([
+            {
+                path: 'add-customer',
+                element: <CustomerAddWrapper />
+            },
+            {
+                path: 'edit-customer/:id',
+                element: <CustomerEditWrapper />
+            },
+        ])
     }
 ]);
 
