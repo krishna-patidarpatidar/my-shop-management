@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
-import { Link, Outlet, useNavigate } from 'react-router-dom';
+import { Link, Outlet } from 'react-router-dom';
+
 
 type Customer = {
   _id: string;
@@ -14,9 +15,9 @@ type Props = {
   deleteCustomer: (id: string) => void;
 };
 
-const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }) => {
+const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading}) => {
+  console.log(isLoading)
   const [edit, setEdit] = useState(false);
-const navigate=useNavigate()
   const handleEdit = () => {
     setEdit(true);
     console.log('editcalerur');
@@ -30,14 +31,7 @@ const navigate=useNavigate()
       {edit && (
         <div className="fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="p-6 bg-white rounded-lg shadow-lg relative z-20 w-[80%] max-w-md">
-            <button
-              className="absolute top-2 right-2 text-gray-500 hover:text-gray-700 font-bold text-xl"
-              onClick={() =>{ setEdit(false)
-                navigate('/customer')
-              }}
-            >
-              X
-            </button>
+           
             {/* Render the add/edit component via the Outlet */}
             <Outlet context={{setEdit}} />
           </div>
@@ -59,7 +53,7 @@ const navigate=useNavigate()
 
         {/* Mobile Responsive Table */}
         <div className="overflow-hidden shadow-lg rounded-lg bg-white">
-          <table className="min-w-full table-auto text-left hidden md:table">
+           <table className="min-w-full table-auto text-left hidden md:table">
             <thead className="bg-blue-600 text-white uppercase">
               <tr>
                 <th className="py-3 px-6">Customer Name</th>

@@ -5,7 +5,7 @@ import shopApiSlice from "../Service";
 const CustomerApiSlice = shopApiSlice.injectEndpoints({
     endpoints: (builder:any) => ({
         createCustomer: builder.mutation({
-            query: ({ customerData, token }) => ({
+            query: ({ customerData, token }:any) => ({
               url: `/customer/createCustomer`,
               method: "POST",
               body: customerData,
@@ -14,7 +14,7 @@ const CustomerApiSlice = shopApiSlice.injectEndpoints({
             invalidatesTags: ['customer']
           }),
           customerDelete: builder.mutation({
-            query: ({ token, id }) => ({
+            query: ({ token, id }:any) => ({
               url: `/customer/deleteCustomer/${id}`,
               method: "DELETE",
               headers: { "x-access-token": token },
@@ -23,7 +23,7 @@ const CustomerApiSlice = shopApiSlice.injectEndpoints({
             invalidatesTags: ['customer']
           }),
           getCustomer: builder.query({
-            query: ({ token }) => ({
+            query: ({ token }:any)  => ({
               url: `/customer/getAllCustomer`,
               method: "GET",
               headers: { "x-access-token": token }
@@ -31,7 +31,7 @@ const CustomerApiSlice = shopApiSlice.injectEndpoints({
             providesTags: ['customer']
           }),
           customerEdit: builder.mutation({
-            query: ({ customerData,token, id }) => ({
+            query: ({ customerData,token, id }:any) => ({
               url: `/customer/editCustomer/${id}`,
               method: "PATCH",
               body: customerData,

@@ -1,6 +1,7 @@
 import React from 'react';
 import AtmTextField from '../../../Components/atoms/Input/AtmTypeText/AtmTextField';
 import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
+import { useOutletContext } from 'react-router-dom';
 
 type FormikProps = {
   values: {
@@ -18,17 +19,20 @@ type Props = {
 };
 
 const CustomerForm: React.FC<Props> = ({ formikProps }) => {
-  const { values, handleChange, handleBlur, isSubmitting } = formikProps;
+  const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
+
+  const { values, handleChange, handleBlur, isSubmitting,touched,errors }:any = formikProps;
 
   return (
     <div className=" flex items-center justify-center">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6 text-center">Customer Data</h1>
+      <div className="bg-white shadow-lg rounded-lg w-full p-5 max-w-md">
+      <span className='right-6 top-3 absolute text-2xl text-red-700 cursor-pointer p-3' onClick={()=>setEdit((false))}>X</span>
+        <h1 className="text-4xl font-semibold text-gray-800 mb-6 text-center">Customer Data </h1>
         
         {/* Name Field */}
         <div className="mb-4">
           <AtmTextField
-           label='customer name'
+           label='Customer Name'
             name="name"
             value={values.name}
             placeholder="Customer Name"
@@ -36,12 +40,15 @@ const CustomerForm: React.FC<Props> = ({ formikProps }) => {
             onBlur={handleBlur}
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
+          {touched.name && errors.name && (
+            <div className="text-red-600 absolute text-sm">{errors.name}</div>
+          )}
         </div>
         
         {/* Mobile Number Field */}
         <div className="mb-4">
           <AtmTextField
-            label='customer mobile no.'
+            label='Customer Mobile Number.'
             name="mobile"
             value={values.mobile}
             placeholder="Customer Mobile Number"
@@ -49,12 +56,15 @@ const CustomerForm: React.FC<Props> = ({ formikProps }) => {
             onBlur={handleBlur}
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
+          {touched.mobile && errors.mobile && (
+            <div className="text-red-600 absolute text-sm">{errors.mobile}</div>
+          )}
         </div>
         
         {/* Address Field */}
         <div className="mb-6">
           <AtmTextField
-            label='customer address'
+            label='Customer Address'
             name="address"
             value={values.address}
             placeholder="Customer Address"
@@ -62,6 +72,9 @@ const CustomerForm: React.FC<Props> = ({ formikProps }) => {
             onBlur={handleBlur}
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
+          {touched.address && errors.address && (
+            <div className="text-red-600 absolute text-sm">{errors.address}</div>
+          )}
         </div>
 
         {/* Submit Button */}

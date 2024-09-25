@@ -1,30 +1,39 @@
 import shopApiSlice from "../Service";
 
-
-
 const ProductSlice = shopApiSlice.injectEndpoints({
-    endpoints: (builder:any) => ({
-addProducts: builder.mutation({
-    query: ({ productData,token}) => ({
-      url: `/product/addProducts`,
-      method: "POST",
-      body: productData,
-      headers: { "x-access-token": token },
+  endpoints: (builder: any) => ({
+    addProducts: builder.mutation({
+      query: ({ productData, token }:any) => ({
+        url: `/product/addProducts`,
+        method: "POST",
+        body: productData,
+        headers: { "x-access-token": token },
+      }),
+      invalidatesTags: ['product'], // Invalidates 'product' tag to auto-update
     }),
-    invalidatesTags: ['products']
-  }),
-  getProducts: builder.query({
-    query: ({token}) => ({
-      url: `/product/getProducts`,
-      method: "GET",
-      headers: { "x-access-token": token },
+    getProducts: builder.query({
+      query: ({ token }:any) => ({
+        url: `/product/getProducts`,
+        method: "GET",
+        headers: { "x-access-token": token },
+      }),
+      providesTags: ['product'], // Provides 'product' tag to trigger re-fetch
     }),
-    invalidatesTags: ['products']
+    editProducts: builder.mutation({
+      query: ({ token, id, productData }:any) => ({
+        url: `/product/editProduct/${id}`,
+        method: "PATCH",
+        headers: { "x-access-token": token },
+        body: productData,
+      }),
+      invalidatesTags: ['product'], // Invalidates 'product' tag to auto-update
+    }),
   }),
-})
-})
-const {
-useAddProductsMutation,
-useGetProductsQuery
-}=ProductSlice
-export default ProductSlice
+});
+
+export const {
+  useAddProductsMutation,
+  useEditProductsMutation,
+  useGetProductsQuery,
+} = ProductSlice;
+export default ProductSlice;

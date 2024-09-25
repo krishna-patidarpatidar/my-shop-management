@@ -1,22 +1,34 @@
 import React from 'react';
 import { useCustomerDeleteMutation, useGetCustomerQuery } from '../../../Service/CustomerApi/CustomerSlice';
 import CustomerList from './CustomerList';
+import Swal from 'sweetalert2';
 
 const CustomerListWrapper: React.FC = () => {
   const token = localStorage.getItem("auth");
   
   const { data, isError, isLoading } = useGetCustomerQuery({ token });
   const [deleteCustomerById] = useCustomerDeleteMutation();
-console.log(data)
+console.log(isLoading)
   // Handle customer deletion
-  const handleDelete = async (customerId) => {
-    try {
-      await deleteCustomerById({ id: customerId, token });
-      console.log('Customer deleted successfully');
-      // Optionally, you can refetch the customer list or remove the deleted customer from the local state
-    } catch (error) {
-      console.error('Error deleting customer:', error);
-    }
+  const handleDelete = async (customerId: string) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you really want to delete this customer?",
+      icon: 'warning',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteCustomerById({ id: customerId, token });
+          Swal.fire('Deleted!', 'The customer has been deleted.', 'success');
+        } catch (error) {
+          Swal.fire('Error!', 'There was a problem deleting the customer.', 'error');
+        }
+      }
+    });
   };
 
   if (isLoading) return <div>Loading...</div>;
@@ -24,7 +36,7 @@ console.log(data)
    const customerData=data.data;
   return (
     <div>
-      <CustomerList customerData={customerData || []} deleteCustomer={handleDelete} />
+     {<CustomerList customerData={customerData || []} deleteCustomer={handleDelete} isLoading={isLoading} />}
     </div>
   );
 };

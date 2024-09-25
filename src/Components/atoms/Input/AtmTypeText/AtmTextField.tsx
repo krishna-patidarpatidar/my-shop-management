@@ -22,7 +22,7 @@ const AtmTextField: React.FC<InputProps> = ({
 }) => {
   return (
     <div className='flex flex-col gap-2'>
-      <label htmlFor={name}>{label}</label>
+      <label className='text-2xl font-semibold text-slate-700' htmlFor={name}>{label}</label>
       <input
         type="text"
         value={value}
@@ -30,7 +30,7 @@ const AtmTextField: React.FC<InputProps> = ({
         onChange={onChange}
         onBlur={onBlur}
         name={name} 
-        className={`border px-3 py-1 text-gray-900 text-xl ${className}`}
+        className={`border px-4 py-2  text-gray-900 text-xl ${className}`}
       />
     </div>
   );

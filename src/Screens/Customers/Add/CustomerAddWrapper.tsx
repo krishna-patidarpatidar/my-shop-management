@@ -4,9 +4,10 @@ import * as Yup from 'yup'; // Optional: if you plan to use validation
 import { useCreateCustomerMutation } from '../../../Service/CustomerApi/CustomerSlice';
 import CustomerForm from '../Layout/CustomerForm';
 import { useNavigate, useOutletContext } from 'react-router-dom';
+import Toast from '../../../Config/Toast';
 
 const CustomerAddWrapper: React.FC = () => {
-    const navigate=useNavigate()
+    const navigate = useNavigate()
     const [createCustomer] = useCreateCustomerMutation()
     const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
 
@@ -19,25 +20,41 @@ const CustomerAddWrapper: React.FC = () => {
                     address: ''
                 }}
                 validationSchema={Yup.object({
-                    name: Yup.string().required('Customer name is required'),
-                    mobile: Yup.string().required('Mobile number is required').min(10,'mobile no is 10 digit is required'),
-                    address: Yup.string().required('Address is required'),
+                    name: Yup.string()
+                    .required('Customer name is required')
+                    .min(2, 'Customer name must be at least 2 characters'),
+                  
+                    mobile: Yup.string()
+                    .required('Mobile number is required')
+                    .matches(/^[0-9]+$/, 'Mobile number must contain only digits')
+                    .length(10, 'Mobile number must be exactly 10 digits'),
+                  
+                  address: Yup.string()
+                    .required('Address is required')
+                    .min(7, 'Address must be at least 7 characters'),
                 })}
                 onSubmit={(values, { setSubmitting }) => {
                     const token = localStorage.getItem("auth")
                     console.log(values); // Handle the form submission
 
                     createCustomer({ customerData: values, token })
-                    .then((res)=>{
-                        console.log(res)
-                    })
-                    setSubmitting(false);
-                    navigate('/customer')
+                        .then((res:any) => {
+                            console.log(res.data.status)
+                            if (res.data.status) {
+                            Toast.successMsg(res.data.msg)
+                                navigate('/customer')
+                                setSubmitting(false);
+                            }else{
+                                Toast.errorMsg(res.data.msg)
+                            }
+                        })
+                    
+                    
                     setEdit(false)
                 }}
             >
-                {formikProps => (
-                    <Form>
+                {({handleSubmit,...formikProps}) => (
+                    <Form onSubmit={handleSubmit}>
                         <CustomerForm formikProps={formikProps} />
                     </Form>
                 )}

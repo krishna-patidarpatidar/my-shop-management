@@ -21,5 +21,5 @@ const AuthApi = shopApiSlice.injectEndpoints({
       }),
     })
 })
-export const {useLoginMutation}=AuthApi
+export const {useLoginMutation,useRegisterMutation}=AuthApi
 export default AuthApi;
