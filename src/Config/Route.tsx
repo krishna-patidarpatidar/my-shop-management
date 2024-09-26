@@ -10,6 +10,8 @@ import ProductEditWrapper from "../Screens/Products/Edit/ProductEditWrapper";
 import DeshBoard from "../Screens/DeshBoard/DeshBoard";
 import WithoutLogin from "../Components/Molecule/Auth/WithoutLogin";
 import Auth from "../Components/Molecule/Auth/Auth";
+import InvoiceListWrapper from "../Screens/Invoice/List/InvoiceListWrapper";
+import AddInvoiceWrapper from "../Screens/Invoice/Add/AddInvoiceWrapper";
 // import Hourglass from "../Components/Molecule/Skeleton/TableSkeleton";
 
 const pageRoute = createBrowserRouter([
@@ -52,7 +54,17 @@ const pageRoute = createBrowserRouter([
                         path: 'edit-product/:id', element: <ProductEditWrapper />
                     }
                 ])
-            },]
+            },
+        {
+            path:'invoice',element:<InvoiceListWrapper/>,
+            children: [
+                {
+                    path:'add-invoice',element:<AddInvoiceWrapper/>
+                }
+            ]
+        }
+        
+        ]
     },
 ]);
 

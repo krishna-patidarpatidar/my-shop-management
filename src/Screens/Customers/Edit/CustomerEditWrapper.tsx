@@ -15,7 +15,7 @@ const CustomerEditWrapper: React.FC = () => {
     const address = queryParams.get("address")
     const [editCustomer] = useCustomerEditMutation()
     const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
-
+ 
     return (
         <div>
             <Formik
@@ -58,6 +58,7 @@ const CustomerEditWrapper: React.FC = () => {
             >
                 {formikProps => (
                     <Form>
+                        
                         <CustomerForm formikProps={formikProps} />
                     </Form>
                 )}

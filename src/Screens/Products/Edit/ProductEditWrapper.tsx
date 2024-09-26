@@ -54,6 +54,7 @@ const navigate=useNavigate()
   return (
     <div>
       <Formik
+      enableReinitialize
         initialValues={initialValues}
         validationSchema={validationSchema}
         onSubmit={handleSubmit}

@@ -1,33 +1,33 @@
-// import React from 'react';
+import React from 'react';
 
-// const Hourglass: React.FC = () => {
-//   return (
-//     <div className="relative bg-gray-700 h-[130px] w-[130px] rounded-full mx-auto my-8">
-//       <div className="absolute top-[30px] left-[40px] w-[50px] h-[70px] animate-[hourglassRotate_2s_ease-in_infinite] perspective-[1000px]">
-//         <div className="absolute top-[-16px] left-[3px] w-[44px] h-[44px] bg-gray-400 rounded-full transform rotate-x-[90deg]"></div>
-//         <div className="absolute top-[32px] left-[20px] w-[10px] h-[6px] bg-gray-400 opacity-50"></div>
+const Hourglass: React.FC = () => {
+  return (
+    <div className="relative bg-gray-700 mt-60 h-[130px] w-[130px] rounded-full mx-auto my-8">
+      <div className="absolute top-[30px] left-[40px] w-[50px] h-[70px] animate-[hourglassRotate_2s_ease-in_infinite] perspective-[1000px]">
+        <div className="absolute top-[-16px] left-[3px] w-[44px] h-[44px] bg-gray-400 rounded-full transform rotate-x-[90deg]"></div>
+        <div className="absolute top-[32px] left-[20px] w-[10px] h-[6px] bg-gray-400 opacity-50"></div>
 
-//         {/* Hourglass caps */}
-//         <div className="absolute top-0"></div>
-//         <div className="absolute bottom-0"></div>
+        {/* Hourglass caps */}
+        <div className="absolute top-0"></div>
+        <div className="absolute bottom-0"></div>
 
-//         {/* Curves */}
-//         <div className="absolute top-[32px] left-[15px] w-[6px] h-[6px] bg-gray-800 rounded-full animate-[hideCurves_2s_ease-in_infinite]"></div>
-//         <div className="absolute top-[32px] left-[29px] w-[6px] h-[6px] bg-gray-800 rounded-full animate-[hideCurves_2s_ease-in_infinite]"></div>
+        {/* Curves */}
+        <div className="absolute top-[32px] left-[15px] w-[6px] h-[6px] bg-gray-800 rounded-full animate-[hideCurves_2s_ease-in_infinite]"></div>
+        <div className="absolute top-[32px] left-[29px] w-[6px] h-[6px] bg-gray-800 rounded-full animate-[hideCurves_2s_ease-in_infinite]"></div>
 
-//         {/* Sand Stream */}
-//         <div className="absolute top-[35px] left-[24px] w-[3px] h-[35px] bg-white animate-[sandStream1_2s_ease-in_infinite]"></div>
-//         <div className="absolute top-[36px] left-[19px] border-l-[6px] border-r-[6px] border-b-[6px] border-transparent border-b-white animate-[sandStream2_2s_ease-in_infinite]"></div>
+        {/* Sand Stream */}
+        <div className="absolute top-[35px] left-[24px] w-[3px] h-[35px] bg-white animate-[sandStream1_2s_ease-in_infinite]"></div>
+        <div className="absolute top-[36px] left-[19px] border-l-[6px] border-r-[6px] border-b-[6px] border-transparent border-b-white animate-[sandStream2_2s_ease-in_infinite]"></div>
 
-//         {/* Sand */}
-//         <div className="absolute top-[8px] left-[6px] w-[39px] h-[17px] bg-white rounded-[3px_3px_30px_30px] animate-[sandFillup_2s_ease-in_infinite]"></div>
-//         <div className="absolute bottom-[45px] left-[6px] w-[38px] h-[17px] bg-white rounded-[30px_30px_3px_3px] animate-[sandDeplete_2s_ease-in_infinite]"></div>
-//       </div>
-//     </div>
-//   );
-// };
+        {/* Sand */}
+        <div className="absolute top-[8px] left-[6px] w-[39px] h-[17px] bg-white rounded-[3px_3px_30px_30px] animate-[sandFillup_2s_ease-in_infinite]"></div>
+        <div className="absolute bottom-[45px] left-[6px] w-[38px] h-[17px] bg-white rounded-[30px_30px_3px_3px] animate-[sandDeplete_2s_ease-in_infinite]"></div>
+      </div>
+    </div>
+  );
+};
 
-// export default Hourglass;
+export default Hourglass;
 // import React from 'react';
 
 // // Desktop Skeleton Loader for table view
@@ -57,14 +57,14 @@
 //     ))}
 //   </>
 // );
-import React from 'react'
+// import React from 'react'
 
-type Props = {}
+// type Props = {}
 
-const TableSkeleton = (props: Props) => {
-  return (
-    <div className='mt-60 ml-60 h-screen bg-yellow-700'>TableSkeleton....</div>
-  )
-}
+// const TableSkeleton = (props: Props) => {
+//   return (
+//     <div className='mt-60 ml-60 h-screen bg-yellow-700'>TableSkeleton....</div>
+//   )
+// }
 
-export default TableSkeleton
+// export default TableSkeleton

@@ -18,11 +18,11 @@ console.log(data)
     return <p>Error loading products.</p>;
   }
 
-  const Data=data.data
+
   return (
     <div>
       {/* Pass the data safely to ProductList */}
-      <ProductList productData={Data} />
+      <ProductList productData={data?.data} />
     </div>
   );
 };

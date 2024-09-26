@@ -29,7 +29,7 @@ const SideBar = ({ isSidebarOpen, closeSidebar }: any) => {
           </div>
         </Link>
 
-        <Link to={'products'}>
+        <Link to={'products'} onClick={closeSidebar}>
           <div className="flex py-2 md:py-4 gap-2 items-center font-bold border-b-2">
             <MdProductionQuantityLimits />
             Products
@@ -38,7 +38,7 @@ const SideBar = ({ isSidebarOpen, closeSidebar }: any) => {
 
 
 
-        <Link to={'bills'} onClick={closeSidebar}>
+        <Link to={'/admin/invoice'} onClick={closeSidebar}>
           <div className="flex py-2 md:py-4 gap-2 items-center font-bold border-b-2">
             <RiBillLine />
             Bills
