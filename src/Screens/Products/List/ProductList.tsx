@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
 import { Link, Outlet } from 'react-router-dom';
-import AtmTextField from '../../../Components/atoms/Input/AtmTypeText/AtmTextField';
 
 type Product = {
   _id: string;
@@ -16,7 +15,7 @@ type Props = {
   isLoading: boolean;
 };
 
-const ProductList: React.FC<Props> = ({ productData, deleteProduct }) => {
+const ProductList: React.FC<Props> = ({ productData }) => {
   const [edit, setEdit] = useState(false);
 
   const handleEdit = () => {
@@ -24,43 +23,46 @@ const ProductList: React.FC<Props> = ({ productData, deleteProduct }) => {
   };
 
   return (
-    <div className="container mx-auto p-4 relative">
+    <div className="container mx-auto p-4 mt-40 relative">
       {edit && (
         <div className="fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="p-6 bg-white rounded-lg shadow-lg relative z-20 w-[80%] max-w-md">
+          <div className="p-6 bg-white rounded-lg shadow-lg mt-40 relative z-20 w-[80%] max-w-md">
             <Outlet context={{ setEdit }} />
           </div>
         </div>
       )}
 
       <div className={`${edit ? 'blur-sm pointer-events-none' : ''}`}>
-        <div className="flex justify-between items-center mb-6">
-          <h1 className="text-2xl font-bold text-gray-800">Product List</h1>
-          <div className='flex gap-1'>
-            <input 
-            type='search'
-            placeholder='search hear'
-            className='border text-xl pl-2 rounded'
+        <div className="md:flex sm:flex-col justify-between items-center mb-6">
+          <h1 className="text-2xl  font-bold text-gray-800">Product List</h1>
+          <div className='md:flex sm:flex-col  gap-1'>
+            <input
+              type='search'
+              placeholder='search hear'
+              className='border text-xl pl-2 rounded'
 
             />
             <select name="" id="" className='border text-xl px-4 rounded'>
               <option value="">
-              clothes
+                All
               </option>
               <option value="">
-              cosmetics
+                Clothes
               </option>
               <option value="">
-              jewelry
+                Cosmetics
+              </option>
+              <option value="">
+                Jewelry
               </option>
             </select>
-          <Link to={'add-product'}>
-            <AtmButtonField
-              onClick={handleEdit}
-              label="Add New"
-              className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 transition-all duration-200"
-            />
-          </Link>
+            <Link to={'add-product'}>
+              <AtmButtonField
+                onClick={handleEdit}
+                label="Add New"
+                className="px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-500 transition-all duration-200"
+              />
+            </Link>
           </div>
         </div>
 
@@ -68,6 +70,7 @@ const ProductList: React.FC<Props> = ({ productData, deleteProduct }) => {
           <table className="min-w-full table-auto text-left hidden md:table">
             <thead className="bg-blue-600 text-white uppercase">
               <tr>
+                <th className="py-3 px-6">Product Category</th>
                 <th className="py-3 px-6">Product Name</th>
                 <th className="py-3 px-6">Selling Price</th>
                 <th className="py-3 px-6">Product Code</th>
@@ -92,11 +95,11 @@ const ProductList: React.FC<Props> = ({ productData, deleteProduct }) => {
                             className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400 transition duration-200"
                           />
                         </Link>
-                        <AtmButtonField
+                        {/* <AtmButtonField
                           label="Delete"
                           onClick={() => deleteProduct(product._id)}
                           className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200"
-                        />
+                        /> */}
                       </div>
                     </td>
                   </tr>
@@ -138,11 +141,11 @@ const ProductList: React.FC<Props> = ({ productData, deleteProduct }) => {
                         className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400 transition duration-200 w-full"
                       />
                     </Link>
-                    <AtmButtonField
+                    {/* <AtmButtonField
                       label="Delete"
                       onClick={() => deleteProduct(product._id)}
                       className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200 w-full"
-                    />
+                    /> */}
                   </div>
                 </div>
               ))

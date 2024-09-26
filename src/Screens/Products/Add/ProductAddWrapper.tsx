@@ -16,7 +16,8 @@ const navigate=useNavigate()
   const initialValues = {
     name: '',
     sellingPrice: '',
-    productCode: ''
+    productCode: '',
+    categoryName: ''
   };
 
   // Validation schema using Yup
@@ -24,6 +25,7 @@ const navigate=useNavigate()
     name: Yup.string().required('Product name is required'),
     sellingPrice: Yup.number().required('Selling price is required'),
     productCode: Yup.string().required('Product code is required'),
+    CategoryName: Yup.string().required('Product code is required'),
   });
 
   const handleSubmit = (values: any,{setSubmitting}:any) => {
@@ -36,7 +38,7 @@ const navigate=useNavigate()
         Toast.errorMsg(res.data.msg)
       }
       setSubmitting(false)
-      navigate('/products')
+      navigate('/admin/products')
       setEdit(false)
     })
   };
@@ -48,7 +50,7 @@ const navigate=useNavigate()
         validationSchema={validationSchema}
         onSubmit={handleSubmit}
       >
-        {({ handleSubmit, ...formikProps }) => (
+        {({ handleSubmit, ...formikProps }:any) => (
           <Form onSubmit={handleSubmit}>
             <ProductForm formikProps={formikProps} />
           </Form>

@@ -15,7 +15,7 @@ type Props = {
   deleteCustomer: (id: string) => void;
 };
 
-const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading}) => {
+const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading}:any) => {
   console.log(isLoading)
   const [edit, setEdit] = useState(false);
   const handleEdit = () => {
@@ -26,11 +26,11 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading
   console.log(edit);
 
   return (
-    <div className="container mx-auto p-4 relative">
+    <div className="container mx-auto p-4 mt-40 text-xl relative">
       {/* Overlay for Edit/Add Modal */}
       {edit && (
         <div className="fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
-          <div className="p-6 bg-white rounded-lg shadow-lg relative z-20 w-[80%] max-w-md">
+          <div className="p-6 bg-white rounded-lg mt-40 shadow-lg relative z-20 w-[80%] max-w-md">
            
             {/* Render the add/edit component via the Outlet */}
             <Outlet context={{setEdit}} />
@@ -64,7 +64,7 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading
             </thead>
             <tbody className="text-gray-700">
               {customerData?.length > 0 ? (
-                customerData.map((customer) => (
+                customerData.map((customer:any) => (
                   <tr key={customer._id} className="border-b hover:bg-gray-50">
                     <td className="py-3 px-6">{customer.name}</td>
                     <td className="py-3 px-6">{customer.mobile}</td>
@@ -102,7 +102,7 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading
           {/* Mobile View */}
           <div className="md:hidden">
             {customerData?.length > 0 ? (
-              customerData.map((customer) => (
+              customerData.map((customer:any) => (
                 <div key={customer._id} className="border-b p-4 flex flex-col gap-2 mb-4 bg-gray-50">
                   <div>
                     <span className="font-bold text-sm text-gray-700">Customer Name:</span>

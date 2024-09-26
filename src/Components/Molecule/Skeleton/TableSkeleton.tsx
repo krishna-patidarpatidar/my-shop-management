@@ -28,31 +28,43 @@
 // };
 
 // export default Hourglass;
-import React from 'react';
+// import React from 'react';
 
-// Desktop Skeleton Loader for table view
-export const TableSkeletonLoader: React.FC = () => (
-  <>
-    {[...Array(3)].map((_, index) => (
-      <tr key={index} className="border-b animate-pulse">
-        <td className="py-3 px-6 bg-gray-200 rounded">&nbsp;</td>
-        <td className="py-3 px-6 bg-gray-200 rounded">&nbsp;</td>
-        <td className="py-3 px-6 bg-gray-200 rounded">&nbsp;</td>
-        <td className="py-3 px-6 bg-gray-200 rounded">&nbsp;</td>
-      </tr>
-    ))}
-  </>
-);
+// // Desktop Skeleton Loader for table view
+// export const TableSkeletonLoader: React.FC = () => (
+//   <>
+//     {[...Array(3)].map((_, index) => (
+//       <tr key={index} className="border-b animate-pulse">
+//         <td className="py-3 px-6 bg-gray-200 rounded">&nbsp;</td>
+//         <td className="py-3 px-6 bg-gray-200 rounded">&nbsp;</td>
+//         <td className="py-3 px-6 bg-gray-200 rounded">&nbsp;</td>
+//         <td className="py-3 px-6 bg-gray-200 rounded">&nbsp;</td>
+//       </tr>
+//     ))}
+//   </>
+// );
 
-// Mobile Skeleton Loader for mobile view
-export const MobileSkeletonLoader: React.FC = () => (
-  <>
-    {[...Array(3)].map((_, index) => (
-      <div key={index} className="border-b p-4 mb-4 bg-gray-200 animate-pulse rounded-lg">
-        <div className="h-4 bg-gray-300 mb-2 w-1/2"></div>
-        <div className="h-4 bg-gray-300 mb-2 w-1/3"></div>
-        <div className="h-4 bg-gray-300 mb-2 w-2/3"></div>
-      </div>
-    ))}
-  </>
-);
+// // Mobile Skeleton Loader for mobile view
+// export const MobileSkeletonLoader: React.FC = () => (
+//   <>
+//     {[...Array(3)].map((_, index) => (
+//       <div key={index} className="border-b p-4 mb-4 bg-gray-200 animate-pulse rounded-lg">
+//         <div className="h-4 bg-gray-300 mb-2 w-1/2"></div>
+//         <div className="h-4 bg-gray-300 mb-2 w-1/3"></div>
+//         <div className="h-4 bg-gray-300 mb-2 w-2/3"></div>
+//         <div className="h-4 bg-gray-300 mb-2 w-2/3"></div>
+//       </div>
+//     ))}
+//   </>
+// );
+import React from 'react'
+
+type Props = {}
+
+const TableSkeleton = (props: Props) => {
+  return (
+    <div className='mt-60 ml-60 h-screen bg-yellow-700'>TableSkeleton....</div>
+  )
+}
+
+export default TableSkeleton

@@ -26,12 +26,12 @@ const CustomerAddWrapper: React.FC = () => {
                   
                     mobile: Yup.string()
                     .required('Mobile number is required')
-                    .matches(/^[0-9]+$/, 'Mobile number must contain only digits')
+                    // .matches(/^[0-9]+$/, 'Mobile number must contain only digits')
                     .length(10, 'Mobile number must be exactly 10 digits'),
                   
                   address: Yup.string()
                     .required('Address is required')
-                    .min(7, 'Address must be at least 7 characters'),
+                    .min(3,"must be a 3 letter " )
                 })}
                 onSubmit={(values, { setSubmitting }) => {
                     const token = localStorage.getItem("auth")
@@ -42,7 +42,7 @@ const CustomerAddWrapper: React.FC = () => {
                             console.log(res.data.status)
                             if (res.data.status) {
                             Toast.successMsg(res.data.msg)
-                                navigate('/customer')
+                                navigate('/admin/customer')
                                 setSubmitting(false);
                             }else{
                                 Toast.errorMsg(res.data.msg)

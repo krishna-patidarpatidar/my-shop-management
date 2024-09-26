@@ -1,4 +1,4 @@
-import  { useState } from 'react';
+import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Components/Molecule/Header/Header';
 import SideBar from '../Components/Molecule/SideBar/SideBar';
@@ -15,15 +15,17 @@ const ProjectLayout = () => {
   };
 
   return (
-<div className="flex flex-col h-screen">
-<Header toggle={toggleSidebar} />
-    <div className="flex flex-1">
-    <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
-      <main className="flex-1 p-4 h-auto w-full ">
-      <Outlet/>
-      </main>
+    <div className="flex flex-col h-screen">
+      <Header toggle={toggleSidebar} />
+      <div className="flex flex-1">
+        <div className='fixed z-20 mt-[122px] md:mt-0 '>
+          <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
+        </div>
+        <main className="flex-1 p-4 h-auto w-full ">
+          <Outlet />
+        </main>
+      </div>
     </div>
-  </div>
 
     // <div className=" max-h-screen relative">
     //   <Header toggle={toggleSidebar} />

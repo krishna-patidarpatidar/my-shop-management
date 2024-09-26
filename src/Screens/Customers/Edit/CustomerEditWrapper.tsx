@@ -31,12 +31,12 @@ const CustomerEditWrapper: React.FC = () => {
                   
                     mobile: Yup.string()
                     .required('Mobile number is required')
-                    .matches(/^[0-9]+$/, 'Mobile number must contain only digits')
+                    // .matches(/^[0-9]+$/, 'Mobile number must contain only digits')
                     .length(10, 'Mobile number must be exactly 10 digits'),
                   
                   address: Yup.string()
                     .required('Address is required')
-                    .min(7, 'Address must be at least 7 characters'),
+                    .min(3, 'Address must be at least 3 characters'),
                 })}
                 onSubmit={(values, { setSubmitting }) => {
                     const token = localStorage.getItem("auth")
@@ -51,7 +51,7 @@ const CustomerEditWrapper: React.FC = () => {
                         }
                     })
                     setSubmitting(false);
-                    navigate('/customer')
+                    navigate('/admin/customer')
                     setEdit(false)
                     
                 }}
