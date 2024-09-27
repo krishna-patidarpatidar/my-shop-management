@@ -12,7 +12,11 @@ import WithoutLogin from "../Components/Molecule/Auth/WithoutLogin";
 import Auth from "../Components/Molecule/Auth/Auth";
 import InvoiceListWrapper from "../Screens/Invoice/List/InvoiceListWrapper";
 import AddInvoiceWrapper from "../Screens/Invoice/Add/AddInvoiceWrapper";
-// import Hourglass from "../Components/Molecule/Skeleton/TableSkeleton";
+import ShowInviceWrapper from "../Screens/Invoice/Invoice/ShowInviceWrapper";
+import EditInvoiceWrapper from "../Screens/Invoice/Edit/EditInvoiceWrapper";
+import CategoryListFormWrapper from "../Screens/Category/List/CategoryListFormWrapper";
+import EditCategoryWrapper from "../Screens/Category/Edit/EditCategoryWrapper";
+import AddCategoryWrapper from "../Screens/Category/Add/AddCategoryWrapper";
 
 const pageRoute = createBrowserRouter([
     {
@@ -60,8 +64,26 @@ const pageRoute = createBrowserRouter([
             children: [
                 {
                     path:'add-invoice',element:<AddInvoiceWrapper/>
-                }
+                },
+                {
+                    path:'edit-invoice/:id',element:<EditInvoiceWrapper/>
+                },
+                {
+                    path:'show-invoice/:id',element:<ShowInviceWrapper/>
+                },
             ]
+        },
+        {
+            path:'category',element:<CategoryListFormWrapper/>,
+            children:([
+                {
+                    path:'add-category',element:<AddCategoryWrapper/>
+                },
+                {
+                    path:'edit-category/:id',element:<EditCategoryWrapper/>
+                },
+               
+            ])
         }
         
         ]

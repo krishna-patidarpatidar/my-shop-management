@@ -1,17 +1,20 @@
-import React from 'react'
-import ShowInvoice from './ShowInvoice'
-import { useParams } from 'react-router-dom'
-import { useGetCustomerInvoiceQuery } from '../../../Service/InvoiceApi/InvoiceApiSlice'
-import { useReactToPrint } from 'react-to-print'
+import  { useRef } from 'react';
+import ShowInvoice from './ShowInvoice';
+import { useParams } from 'react-router-dom';
+import { useGetCustomerInvoiceQuery } from '../../../Service/InvoiceApi/InvoiceApiSlice';
+import { useReactToPrint } from 'react-to-print';
 
-type Props = {}
 
-const ShowInviceWrapper = (props: Props) => {
-    const token = localStorage.getItem("auth")
-    const { INVNo } = useParams()
-    const { data, isError, isLoading } = useGetCustomerInvoiceQuery({ token, INVNo })
-    const contentToPrint = useRef(null);
-    console.log(data,"data bill")
+
+const ShowInviceWrapper = () => {
+  const contentToPrint = useRef(null);
+    const token = localStorage.getItem("auth");
+    const { id } = useParams();
+    const { data, isError, isLoading } = useGetCustomerInvoiceQuery({ token, id });
+    
+    
+    console.log(data, "data bill");
+
     const handlePrint = useReactToPrint({
         documentTitle: "Print This Document",
         content: () => contentToPrint.current,
@@ -27,10 +30,14 @@ const ShowInviceWrapper = (props: Props) => {
     if (isError) {
         return <div>Error fetching data</div>;
     }
-  return (
-    <ShowInvoice data={data} handlePrint={handlePrint}
-    />
-  )
+
+    return (
+        <ShowInvoice 
+            data={data?.data} 
+            handlePrint={handlePrint} 
+            contentToPrint={contentToPrint} 
+        />
+    );
 }
 
-export default ShowInviceWrapper
+export default ShowInviceWrapper;

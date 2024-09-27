@@ -24,8 +24,8 @@ const InviceApiSlice = shopApiSlice.injectEndpoints({
 
         }),
         getCustomerInvoice: builder.query({
-            query: ({ token, INVNo }:any) => ({
-                url: `/bill/getCustomerBill/${INVNo}`,
+            query: ({ token, id }:any) => ({
+                url: `/bill/getCustomerBill/${id}`,
                 method: "GET",
                 headers: { "x-access-token": token },
             }),

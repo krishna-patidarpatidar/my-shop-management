@@ -18,7 +18,7 @@ const ProjectLayout = () => {
     <div className="flex flex-col h-screen">
       <Header toggle={toggleSidebar} />
       <div className="flex flex-1">
-        <div className='fixed z-20 mt-[122px] md:mt-0 '>
+        <div className=' z-20 absolute mt-[122px] md:mt-0 '>
           <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
         </div>
         <main className="flex-1 p-4 h-auto w-full ">
