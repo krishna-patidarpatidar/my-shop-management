@@ -7,7 +7,6 @@ type Props = {};
 const ProductListWrapper: React.FC<Props> = () => {
   const token=localStorage.getItem("auth")
   const { data, isError, isLoading }:any = useGetProductsQuery({token});
-console.log(data)
   // Handle loading state
   if (isLoading) {
     return <p>Loading products...</p>;

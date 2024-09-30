@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
 import { Link, Outlet } from 'react-router-dom';
+import { useGetCategoryQuery } from '../../../Service/Category/CategoryApiSlice';
 
 type Product = {
   _id: string;
@@ -17,6 +18,8 @@ type Props = {
 
 const ProductList: React.FC<Props> = ({ productData }) => {
   const [edit, setEdit] = useState(false);
+  const token = localStorage.getItem('auth');
+  const { data, isLoading } = useGetCategoryQuery({ token })
 
   const handleEdit = () => {
     setEdit(true);
@@ -42,20 +45,23 @@ const ProductList: React.FC<Props> = ({ productData }) => {
               className='border text-xl pl-2 rounded'
 
             />
-            <select name="" id="" className='border text-xl px-4 rounded'>
-              <option value="">
-                All
-              </option>
-              <option value="">
-                Clothes
-              </option>
-              <option value="">
-                Cosmetics
-              </option>
-              <option value="">
-                Jewelry
-              </option>
-            </select>
+            <div className="md:mb-6  sm:mb-4">
+              {isLoading ? (
+                <div>Loading categories...</div>
+              ) : (
+                <select className='py-3 px-7'
+         
+                >
+                  <option value="">Select a category</option>
+                  {data?.data.map((category) => (
+                    <option key={category._id} value={category._id}>
+                      {category.categoryName}
+                    </option>
+                  ))}
+                </select>
+              )}
+             
+            </div>
             <Link to={'add-product'}>
               <AtmButtonField
                 onClick={handleEdit}
@@ -81,13 +87,14 @@ const ProductList: React.FC<Props> = ({ productData }) => {
               {productData?.length > 0 ? (
                 productData.map((product) => (
                   <tr key={product._id} className="border-b hover:bg-gray-50">
+                    <td className="py-3 px-6">{product.categoryId.categoryName}</td>
                     <td className="py-3 px-6">{product.name}</td>
                     <td className="py-3 px-6">{product.sellingPrice}</td>
                     <td className="py-3 px-6">{product.productCode}</td>
                     <td className="py-3 px-6">
                       <div className="flex gap-2">
                         <Link
-                          to={`edit-product/${product._id}?name=${product.name}&sellingPrice=${product.sellingPrice}&productCode=${product.productCode}`}
+                          to={`edit-product/${product._id}`}
                         >
                           <AtmButtonField
                             label="Edit"
@@ -133,7 +140,7 @@ const ProductList: React.FC<Props> = ({ productData }) => {
                   </div>
                   <div className="flex gap-2 mt-2">
                     <Link
-                      to={`edit-product/${product._id}?name=${product.name}&sellingPrice=${product.sellingPrice}&productCode=${product.productCode}`}
+                      to={`edit-product/${product._id}`}
                     >
                       <AtmButtonField
                         onClick={handleEdit}

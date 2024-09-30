@@ -19,6 +19,14 @@ const ProductSlice = shopApiSlice.injectEndpoints({
       }),
       providesTags: ['product'], // Provides 'product' tag to trigger re-fetch
     }),
+    getSingleProducts: builder.query({
+      query: ({ token,id }:any) => ({
+        url: `/product/getSingleProduct/${id}`,
+        method: "GET",
+        headers: { "x-access-token": token },
+      }),
+      providesTags: ['product'], // Provides 'product' tag to trigger re-fetch
+    }),
     editProducts: builder.mutation({
       query: ({ token, id, productData }:any) => ({
         url: `/product/editProduct/${id}`,
@@ -32,6 +40,7 @@ const ProductSlice = shopApiSlice.injectEndpoints({
 });
 
 export const {
+  useGetSingleProductsQuery,
   useAddProductsMutation,
   useEditProductsMutation,
   useGetProductsQuery,

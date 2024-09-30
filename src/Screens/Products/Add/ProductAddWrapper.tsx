@@ -17,7 +17,7 @@ const navigate=useNavigate()
     name: '',
     sellingPrice: '',
     productCode: '',
-    categoryName: ''
+    categoryId: ''
   };
 
   // Validation schema using Yup
@@ -25,7 +25,7 @@ const navigate=useNavigate()
     name: Yup.string().required('Product name is required'),
     sellingPrice: Yup.number().required('Selling price is required'),
     productCode: Yup.string().required('Product code is required'),
-    CategoryName: Yup.string().required('Product code is required'),
+    categoryId: Yup.string().required('Product code is required'),
   });
 
   const handleSubmit = (values: any,{setSubmitting}:any) => {

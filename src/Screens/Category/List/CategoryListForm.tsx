@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
 import { Link, Outlet } from 'react-router-dom';
+import TableSkeleton from '../../../Components/Molecule/Skeleton/TableSkeleton';
 
 
 type Category = {
@@ -52,7 +53,7 @@ const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoa
 
         {/* Mobile Responsive Table */}
         <div className="overflow-hidden shadow-lg rounded-lg bg-white">
-           <table className="min-w-full table-auto text-left hidden md:table">
+          { isLoading ? < TableSkeleton/> : <table className="min-w-full table-auto text-left hidden md:table">
             <thead className="bg-blue-600 text-white uppercase">
               <tr>
                 <th className="py-3 px-6">Category Name</th>
@@ -69,7 +70,7 @@ const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoa
                     <td className="py-3 px-6">
                       <div className="flex gap-2">
                         <Link
-                          to={`edit-category/${customer._id}?categoryName=${customer.categoryName}`}
+                          to={`edit-category/${customer._id}`}
                         >
                           <AtmButtonField
                             label="Edit"
@@ -94,7 +95,7 @@ const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoa
                 </tr>
               )}
             </tbody>
-          </table>
+          </table> }
 
           {/* Mobile View */}
           <div className="md:hidden">
@@ -108,7 +109,7 @@ const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoa
                  
                   <div className="flex gap-2 mt-2">
                     <Link
-                      to={`edit-category/${customer._id}?categoryName=${customer.categoryName}`}
+                      to={`edit-category/${customer._id}`}
                     >
                       <AtmButtonField
                         onClick={handleEdit}

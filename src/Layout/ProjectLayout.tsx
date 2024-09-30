@@ -1,30 +1,15 @@
-import { useState } from 'react';
 import { Outlet } from 'react-router-dom';
 import Header from '../Components/Molecule/Header/Header';
-import SideBar from '../Components/Molecule/SideBar/SideBar';
 
 const ProjectLayout = () => {
-  const [isSidebarOpen, setIsSidebarOpen] = useState(false);
-
-  const toggleSidebar = () => {
-    setIsSidebarOpen(!isSidebarOpen);
-  };
-
-  const closeSidebar = () => {
-    setIsSidebarOpen(false);
-  };
 
   return (
-    <div className="flex flex-col h-screen">
-      <Header toggle={toggleSidebar} />
-      <div className="flex flex-1">
-        <div className=' z-20 absolute mt-[122px] md:mt-0 '>
-          <SideBar isSidebarOpen={isSidebarOpen} closeSidebar={closeSidebar} />
-        </div>
-        <main className="flex-1 p-4 h-auto w-full ">
-          <Outlet />
-        </main>
-      </div>
+    <div className="">
+      <Header />
+
+      <main className="flex-1 p-4 h-auto w-full ">
+        <Outlet />
+      </main>
     </div>
 
     // <div className=" max-h-screen relative">

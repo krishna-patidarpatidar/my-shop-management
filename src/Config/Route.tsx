@@ -17,6 +17,7 @@ import EditInvoiceWrapper from "../Screens/Invoice/Edit/EditInvoiceWrapper";
 import CategoryListFormWrapper from "../Screens/Category/List/CategoryListFormWrapper";
 import EditCategoryWrapper from "../Screens/Category/Edit/EditCategoryWrapper";
 import AddCategoryWrapper from "../Screens/Category/Add/AddCategoryWrapper";
+import TransactionsListWrapper from "../Screens/Transactions/List/TransactionsListWrapper";
 
 const pageRoute = createBrowserRouter([
     {
@@ -59,33 +60,39 @@ const pageRoute = createBrowserRouter([
                     }
                 ])
             },
-        {
-            path:'invoice',element:<InvoiceListWrapper/>,
-            children: [
-                {
-                    path:'add-invoice',element:<AddInvoiceWrapper/>
-                },
-                {
-                    path:'edit-invoice/:id',element:<EditInvoiceWrapper/>
-                },
-                {
-                    path:'show-invoice/:id',element:<ShowInviceWrapper/>
-                },
-            ]
-        },
-        {
-            path:'category',element:<CategoryListFormWrapper/>,
-            children:([
-                {
-                    path:'add-category',element:<AddCategoryWrapper/>
-                },
-                {
-                    path:'edit-category/:id',element:<EditCategoryWrapper/>
-                },
-               
-            ])
-        }
-        
+            {
+                path: 'invoice', element: <InvoiceListWrapper />,
+                children: [
+                    {
+                        path: 'add-invoice', element: <AddInvoiceWrapper />
+                    },
+                    {
+                        path: 'edit-invoice/:id', element: <EditInvoiceWrapper />
+                    },
+                    {
+                        path: 'show-invoice/:id', element: <ShowInviceWrapper />
+                    },
+                ]
+            },
+            {
+                path: 'category', element: <CategoryListFormWrapper />,
+                children: ([
+                    {
+                        path: 'add-category', element: <AddCategoryWrapper />
+                    },
+                    {
+                        path: 'edit-category/:id', element: <EditCategoryWrapper />
+                    },
+
+                ])
+            },
+            {
+                path:'transactions' ,element:<TransactionsListWrapper/>
+            },
+            {
+                path:'inventory',element:<></>
+            }
+
         ]
     },
 ]);
