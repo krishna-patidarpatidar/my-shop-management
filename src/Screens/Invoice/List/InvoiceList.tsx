@@ -1,7 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { formatDate } from '../../../Components/Molecule/DateHelper/DateHelper'
 
-
 const InvoiceList = ({data,handleDelete}:any) => {
     const location=useLocation()
     return (

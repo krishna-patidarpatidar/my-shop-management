@@ -72,7 +72,7 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading
                     <td className="py-3 px-6">
                       <div className="flex gap-2">
                         <Link
-                          to={`edit-customer/${customer._id}?name=${customer.name}&mobile=${customer.mobile}&address=${customer.address}`}
+                          to={`edit-customer/${customer._id}`}
                         >
                           <AtmButtonField
                             label="Edit"
@@ -118,7 +118,7 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading
                   </div>
                   <div className="flex gap-2 mt-2">
                     <Link
-                      to={`edit-customer/${customer._id}?name=${customer.name}&mobile=${customer.mobile}&address=${customer.address}`}
+                      to={`edit-customer/${customer._id}`}
                     >
                       <AtmButtonField
                         onClick={handleEdit}

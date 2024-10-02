@@ -39,7 +39,7 @@ const Header = () => {
       </div>
 
       {/* SideBar will always be shown on desktop */}
-      <div className="z-30 absolute">
+      <div className="z-30 absolute md:fixed">
         <SideBar  isSidebarOpen={isSidebarOpen} closeSidebar={toggleSidebar}/>
       </div>
 

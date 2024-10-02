@@ -16,14 +16,12 @@ type Props = {
 };
 
 const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading}:any) => {
-  console.log(isLoading)
   const [edit, setEdit] = useState(false);
   const handleEdit = () => {
     setEdit(true);
    
 };
 
-  console.log(edit,'edit');
 
   return (
     <div className="container mx-auto p-4 mt-40 text-xl relative">

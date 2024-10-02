@@ -9,7 +9,7 @@ const CategoryListFormWrapper: React.FC = () => {
 
   const { data, isError, isLoading }: any = useGetCategoryQuery({ token });
   const [deleteCustomerById] = useCategoryDeleteMutation();
-  console.log(data)
+
   // Handle customer deletion
   const handleDelete = async (customerId: string) => {
     Swal.fire({

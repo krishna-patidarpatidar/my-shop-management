@@ -36,10 +36,19 @@ const ProductSlice = shopApiSlice.injectEndpoints({
       }),
       invalidatesTags: ['product'], // Invalidates 'product' tag to auto-update
     }),
+    deleteProducts: builder.mutation({
+      query: ({ token, id }:any) => ({
+        url: `/product/deleteProduct/${id}`,
+        method: "DELETE",
+        headers: { "x-access-token": token }
+      }),
+      invalidatesTags: ['product'], // Invalidates 'product' tag to auto-update
+    }),
   }),
 });
 
 export const {
+  useDeleteProductsMutation,
   useGetSingleProductsQuery,
   useAddProductsMutation,
   useEditProductsMutation,

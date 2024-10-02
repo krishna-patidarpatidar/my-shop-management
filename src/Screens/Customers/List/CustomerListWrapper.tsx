@@ -7,9 +7,9 @@ import Hourglass from '../../../Components/Molecule/Skeleton/TableSkeleton';
 const CustomerListWrapper: React.FC = () => {
   const token = localStorage.getItem("auth");
 
-  const { data, isError, isLoading }: any = useGetCustomerQuery({ token });
+  const { data :customerdata, isError, isLoading }: any = useGetCustomerQuery({ token });
   const [deleteCustomerById] = useCustomerDeleteMutation();
-  console.log(isLoading)
+  
   // Handle customer deletion
   const handleDelete = async (customerId: string) => {
     Swal.fire({
@@ -36,8 +36,8 @@ const CustomerListWrapper: React.FC = () => {
   if (isError) return <div className='mt-60 ml-60'>Error fetching customers</div>;
   return (
     <div>
-{isLoading ? <Hourglass /> : <CustomerList customerData={data?.data || []} 
-      deleteCustomer={handleDelete} isLoading={isLoading} />}
+      {isLoading ? <Hourglass /> : <CustomerList customerData={customerdata?.data || []}
+        deleteCustomer={handleDelete} isLoading={isLoading} />}
     </div>
   );
 };

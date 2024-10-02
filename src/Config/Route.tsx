@@ -7,7 +7,7 @@ import ProjectLayout from "../Layout/ProjectLayout";
 import ProductListWrapper from "../Screens/Products/List/ProductListWrapper";
 import ProductAddWrapper from "../Screens/Products/Add/ProductAddWrapper";
 import ProductEditWrapper from "../Screens/Products/Edit/ProductEditWrapper";
-import DeshBoard from "../Screens/DeshBoard/DeshBoard";
+import DeshBoard from "../Screens/DeshBoard/Dashboard";
 import WithoutLogin from "../Components/Molecule/Auth/WithoutLogin";
 import Auth from "../Components/Molecule/Auth/Auth";
 import InvoiceListWrapper from "../Screens/Invoice/List/InvoiceListWrapper";
@@ -18,6 +18,8 @@ import CategoryListFormWrapper from "../Screens/Category/List/CategoryListFormWr
 import EditCategoryWrapper from "../Screens/Category/Edit/EditCategoryWrapper";
 import AddCategoryWrapper from "../Screens/Category/Add/AddCategoryWrapper";
 import TransactionsListWrapper from "../Screens/Transactions/List/TransactionsListWrapper";
+import AddInventoryWrapper from "../Screens/Inventory/Add/AddInventoryWrapper";
+import EditInventoryWrapper from "../Screens/Inventory/Edit/EditInventoryWrapper";
 
 const pageRoute = createBrowserRouter([
     {
@@ -74,7 +76,7 @@ const pageRoute = createBrowserRouter([
                     },
                 ]
             },
-            {
+            {                                           
                 path: 'category', element: <CategoryListFormWrapper />,
                 children: ([
                     {
@@ -90,7 +92,15 @@ const pageRoute = createBrowserRouter([
                 path:'transactions' ,element:<TransactionsListWrapper/>
             },
             {
-                path:'inventory',element:<></>
+                path:'inventory',element:<InvoiceListWrapper/>,
+                children:([
+                    {
+                        path:'add-inventory',element:<AddInventoryWrapper/>
+                    },
+                    {
+                        path:'edit-inventory/:id',element:<EditInventoryWrapper/>
+                    }
+                ])
             }
 
         ]

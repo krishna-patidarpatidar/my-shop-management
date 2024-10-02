@@ -30,6 +30,14 @@ const CustomerApiSlice = shopApiSlice.injectEndpoints({
             }),
             providesTags: ['customer']
           }),
+          getSingleCustomer: builder.query({
+            query: ({ token ,id}:any)  => ({
+              url: `/customer/getSingleCustomer/${id}`,
+              method: "GET",
+              headers: { "x-access-token": token }
+            }),
+            providesTags: ['customer']
+          }),
           customerEdit: builder.mutation({
             query: ({ customerData,token, id }:any) => ({
               url: `/customer/editCustomer/${id}`,
@@ -42,6 +50,7 @@ const CustomerApiSlice = shopApiSlice.injectEndpoints({
     })
 })
 export const {
+  useGetSingleCustomerQuery,
     useCreateCustomerMutation,
     useCustomerDeleteMutation,
     useCustomerEditMutation,

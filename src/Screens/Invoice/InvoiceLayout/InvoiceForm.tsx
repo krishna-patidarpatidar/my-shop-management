@@ -227,10 +227,9 @@ const InvoiceForm = ({ formikProps }: FormProps) => {
                             <input
                                 name="dueAmount"
                                 value={Math.max(
-                                    values.products.reduce((sum, product) => sum + product.total, 0) -
+                                    values.products.reduce((sum, product) => sum + product.total) -
                                     values.discount -
-                                    (parseFloat(values.onlineAmount) + parseFloat(values.cashAmount)),
-                                    0
+                                    (parseFloat(values.onlineAmount) + parseFloat(values.cashAmount))
                                 )}
                                 readOnly
                                 className="w-full px-3 py-2 border rounded-md bg-gray-100"

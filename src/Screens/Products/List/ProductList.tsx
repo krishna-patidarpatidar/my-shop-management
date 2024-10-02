@@ -16,7 +16,7 @@ type Props = {
   isLoading: boolean;
 };
 
-const ProductList: React.FC<Props> = ({ productData }) => {
+const ProductList: React.FC<Props> = ({ productData,deleteProduct }) => {
   const [edit, setEdit] = useState(false);
   const token = localStorage.getItem('auth');
   const { data, isLoading } = useGetCategoryQuery({ token })
@@ -102,11 +102,11 @@ const ProductList: React.FC<Props> = ({ productData }) => {
                             className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400 transition duration-200"
                           />
                         </Link>
-                        {/* <AtmButtonField
+                        <AtmButtonField
                           label="Delete"
                           onClick={() => deleteProduct(product._id)}
                           className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200"
-                        /> */}
+                        />
                       </div>
                     </td>
                   </tr>
@@ -148,11 +148,11 @@ const ProductList: React.FC<Props> = ({ productData }) => {
                         className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400 transition duration-200 w-full"
                       />
                     </Link>
-                    {/* <AtmButtonField
+                    <AtmButtonField
                       label="Delete"
                       onClick={() => deleteProduct(product._id)}
                       className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200 w-full"
-                    /> */}
+                    />
                   </div>
                 </div>
               ))

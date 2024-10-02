@@ -1,6 +1,6 @@
 import { Link } from 'react-router-dom'
 
-const DeshBoard = () => {
+const Dashboard = () => {
   return (
 
     <div className="grid grid-cols-1 gap-4 mt-40 p-4 md:grid-cols-2 items-start lg:grid-cols-4">
@@ -50,4 +50,4 @@ const DeshBoard = () => {
   )
 }
 
-export default DeshBoard
+export default Dashboard

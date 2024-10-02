@@ -1,4 +1,3 @@
-import React from 'react'
 import { useCreateInvoiceMutation } from '../../../Service/InvoiceApi/InvoiceApiSlice';
 import InvoiceForm from '../InvoiceLayout/InvoiceForm';
 import { Formik } from 'formik';
@@ -24,7 +23,7 @@ const initialValues = {
     discount: ''  // discount in rupee
 };
 
-const AddInvoiceWrapper = (props: Props) => {
+const AddInvoiceWrapper = () => {
     const [createBill] = useCreateInvoiceMutation();
     const token = localStorage.getItem("auth");
 
