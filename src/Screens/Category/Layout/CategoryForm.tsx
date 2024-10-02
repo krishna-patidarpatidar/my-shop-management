@@ -28,7 +28,7 @@ const CategoryForm: React.FC<Props> = ({ formikProps }) => {
       <span className='right-6 top-3 absolute text-2xl text-red-700 cursor-pointer p-3' onClick={()=>setEdit((false))}>X</span>
         <h1 className="text-4xl font-semibold text-gray-800 mb-6 text-center"> CategoryForm </h1>
         
-        {/* Name Field */}
+        {/* Name Field */} 
         <div className="mb-4">
           <AtmTextField
            label='Category Name'

@@ -8,10 +8,10 @@ const CategoryListFormWrapper: React.FC = () => {
   const token = localStorage.getItem("auth");
 
   const { data, isError, isLoading }: any = useGetCategoryQuery({ token });
-  const [deleteCustomerById] = useCategoryDeleteMutation();
+  const [deleteCategoryById] = useCategoryDeleteMutation();
 
   // Handle customer deletion
-  const handleDelete = async (customerId: string) => {
+  const handleDelete = async (categoryId: string) => {
     Swal.fire({
       title: 'Are you sure?',
       text: "Do you really want to delete this customer?",
@@ -23,10 +23,10 @@ const CategoryListFormWrapper: React.FC = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await deleteCustomerById({ id: customerId, token });
-          Swal.fire('Deleted!', 'The customer has been deleted.', 'success');
+          await deleteCategoryById({ id: categoryId, token });
+          Swal.fire('Deleted!', 'The category has been deleted.', 'success');
         } catch (error) {
-          Swal.fire('Error!', 'There was a problem deleting the customer.', 'error');
+          Swal.fire('Error!', 'There was a problem deleting the category.', 'error');
         }
       }
     });
@@ -36,8 +36,8 @@ const CategoryListFormWrapper: React.FC = () => {
   if (isError) return <div className='mt-60 ml-60'>Error fetching customers</div>;
   return (
     <div>
-{isLoading ? <Hourglass /> : <CategoryListForm customerData={data?.data || []} 
-      deleteCustomer={handleDelete} isLoading={isLoading} />}
+{isLoading ? <Hourglass /> : <CategoryListForm categoryData={data?.data || []} 
+      deleteCategory={handleDelete} isLoading={isLoading} />}
     </div>
   );
 };

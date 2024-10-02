@@ -54,8 +54,8 @@ const CustomerEditWrapper: React.FC = () => {
                     
                 }}
             >
-                {formikProps => (
-                    <Form>
+                {({ handleSubmit,...formikProps}) => (
+                    <Form onSubmit={handleSubmit}>
                         
                         <CustomerForm formikProps={formikProps} />
                     </Form>

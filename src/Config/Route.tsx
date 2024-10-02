@@ -7,7 +7,6 @@ import ProjectLayout from "../Layout/ProjectLayout";
 import ProductListWrapper from "../Screens/Products/List/ProductListWrapper";
 import ProductAddWrapper from "../Screens/Products/Add/ProductAddWrapper";
 import ProductEditWrapper from "../Screens/Products/Edit/ProductEditWrapper";
-import DeshBoard from "../Screens/DeshBoard/Dashboard";
 import WithoutLogin from "../Components/Molecule/Auth/WithoutLogin";
 import Auth from "../Components/Molecule/Auth/Auth";
 import InvoiceListWrapper from "../Screens/Invoice/List/InvoiceListWrapper";
@@ -20,6 +19,10 @@ import AddCategoryWrapper from "../Screens/Category/Add/AddCategoryWrapper";
 import TransactionsListWrapper from "../Screens/Transactions/List/TransactionsListWrapper";
 import AddInventoryWrapper from "../Screens/Inventory/Add/AddInventoryWrapper";
 import EditInventoryWrapper from "../Screens/Inventory/Edit/EditInventoryWrapper";
+import DashbordWrapper from "../Screens/DeshBoard/DashbordWrapper";
+import VenderListWrapper from "../Screens/Vender/List/VenderListWrapper";
+import VenderAddWrapper from "../Screens/Vender/Add/VenderAddWrapper";
+import VenderEditWrapper from "../Screens/Vender/Edit/VenderEditWrapper";
 
 const pageRoute = createBrowserRouter([
     {
@@ -33,10 +36,6 @@ const pageRoute = createBrowserRouter([
 
         children: [
             {
-                path: 'deshBord', element: <DeshBoard />
-            },
-
-            {
                 path: 'customer',
                 element: <CustomerListWrapper />,
                 children: ([
@@ -47,6 +46,20 @@ const pageRoute = createBrowserRouter([
                     {
                         path: 'edit-customer/:id',
                         element: <CustomerEditWrapper />
+                    },
+                ])
+            },
+            {
+                path: 'vender',
+                element: <VenderListWrapper />,
+                children: ([
+                    {
+                        path: 'add-vender',
+                        element: <VenderAddWrapper/>
+                    },
+                    {
+                        path: 'edit-vender/:id',
+                        element: <VenderEditWrapper />
                     },
                 ])
             },
@@ -76,7 +89,7 @@ const pageRoute = createBrowserRouter([
                     },
                 ]
             },
-            {                                           
+            {
                 path: 'category', element: <CategoryListFormWrapper />,
                 children: ([
                     {
@@ -89,18 +102,21 @@ const pageRoute = createBrowserRouter([
                 ])
             },
             {
-                path:'transactions' ,element:<TransactionsListWrapper/>
+                path: 'transactions', element: <TransactionsListWrapper />
             },
             {
-                path:'inventory',element:<InvoiceListWrapper/>,
-                children:([
+                path: 'inventory', element: <InvoiceListWrapper />,
+                children: ([
                     {
-                        path:'add-inventory',element:<AddInventoryWrapper/>
+                        path: 'add-inventory', element: <AddInventoryWrapper />
                     },
                     {
-                        path:'edit-inventory/:id',element:<EditInventoryWrapper/>
+                        path: 'edit-inventory/:id', element: <EditInventoryWrapper />
                     }
                 ])
+            },
+            {
+                path: 'deshbord', element: <DashbordWrapper />
             }
 
         ]

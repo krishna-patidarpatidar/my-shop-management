@@ -55,7 +55,7 @@ const ShowInvoice: React.FC<ShowInvoiceProps> = ({ data, handlePrint, contentToP
                     {/* Product Table */}
                     <div className="relative overflow-x-auto border-b-2 py-5">
                         <table className="w-full text-sm">
-                            <thead className="text-xs text-gray-700 uppercase bg-blue-900 dark:text-gray-400">
+                            <thead className="text-xs text-white uppercase bg-blue-900 dark:text-white">
                                 <tr className="text-left">
                                     <th scope="col" className="p-4">S.No</th>
                                     <th scope="col" className="px-6 py-3">Product name</th>

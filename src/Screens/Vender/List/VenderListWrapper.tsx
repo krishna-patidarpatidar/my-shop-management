@@ -1,32 +1,44 @@
 import React from 'react';
-import { usevenderDeleteMutation, useGetvenderQuery } from '../../../Service/venderApi/venderSlice';
+import Swal from 'sweetalert2';
+import Hourglass from '../../../Components/Molecule/Skeleton/TableSkeleton';
+import { useGetVenderQuery, useVenderDeleteMutation } from '../../../Service/VenderApi/VenderSlice';
 import VenderList from './VenderList';
 
-const venderListWrapper: React.FC = () => {
+const VenderListWrapper: React.FC = () => {
   const token = localStorage.getItem("auth");
-  
-  const { data, isError, isLoading } = useGetvenderQuery({ token });
-  const [deletevenderById] = usevenderDeleteMutation();
-console.log(data)
-  // Handle vender deletion
-  const handleDelete = async (venderId:any) => {
-    try {
-      await deletevenderById({ id: venderId, token });
-      console.log('vender deleted successfully');
-      // Optionally, you can refetch the vender list or remove the deleted vender from the local state
-    } catch (error) {
-      console.error('Error deleting vender:', error);
-    }
+
+  const { data :venderData, isError, isLoading }: any = useGetVenderQuery({ token });
+  const [deleteVenderById] = useVenderDeleteMutation();
+  // Handle customer deletion
+  const handleDelete = async (venderId: string) => {
+    Swal.fire({
+      title: 'Are you sure?',
+      text: "Do you really want to delete this vender?",
+      icon: 'question',
+      showCancelButton: true,
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Yes, delete it!'
+    }).then(async (result) => {
+      if (result.isConfirmed) {
+        try {
+          await deleteVenderById({ id: venderId, token });
+          Swal.fire('Deleted!', 'The vender has been deleted.', 'success');
+        } catch (error) {
+          Swal.fire('Error!', 'There was a problem deleting the vender.', 'error');
+        }
+      }
+    });
   };
 
-  if (isLoading) return <div>Loading...</div>;
-  if (isError) return <div>Error fetching venders</div>;
-   const venderData=data.data;
+  // if (isLoading) return <div>Loading...</div>;
+  if (isError) return <div className='mt-60 ml-60'>Error fetching vender</div>;
   return (
     <div>
-      <VenderList venderData={venderData || []} deletevender={handleDelete} />
+      {isLoading ? <Hourglass /> : <VenderList venderData={venderData?.data || []}
+        deleteVender={handleDelete}  />}
     </div>
   );
 };
 
-export default venderListWrapper;
+export default VenderListWrapper;

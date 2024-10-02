@@ -15,7 +15,7 @@ type Props = {
   deleteCategory: (id: string) => void;
 };
 
-const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading}:any) => {
+const CategoryListForm: React.FC<Props> = ({ categoryData, deleteCategory ,isLoading}:any) => {
   const [edit, setEdit] = useState(false);
   const handleEdit = () => {
     setEdit(true);
@@ -60,15 +60,15 @@ const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoa
               </tr>
             </thead>
             <tbody className="text-gray-700">
-              {customerData?.length > 0 ? (
-                customerData.map((customer:any) => (
-                  <tr key={customer._id} className="border-b hover:bg-gray-50">
-                    <td className="py-3 px-6">{customer.categoryName}</td>
+              {categoryData?.length > 0 ? (
+                categoryData.map((category:any) => (
+                  <tr key={category._id} className="border-b hover:bg-gray-50">
+                    <td className="py-3 px-6">{category.categoryName}</td>
                 
                     <td className="py-3 px-6">
                       <div className="flex gap-2">
                         <Link
-                          to={`edit-category/${customer._id}`}
+                          to={`edit-category/${category._id}`}
                         >
                           <AtmButtonField
                             label="Edit"
@@ -78,7 +78,7 @@ const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoa
                         </Link>
                         <AtmButtonField
                           label="Delete"
-                          onClick={() => deleteCustomer(customer._id)}
+                          onClick={() => deleteCategory(category._id)}
                           className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200"
                         />
                       </div>
@@ -97,17 +97,17 @@ const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoa
 
           {/* Mobile View */}
           <div className="md:hidden">
-            {customerData?.length > 0 ? (
-              customerData.map((customer:any) => (
-                <div key={customer._id} className="border-b p-4 flex flex-col gap-2 mb-4 bg-gray-50">
+            {categoryData?.length > 0 ? (
+              categoryData.map((category:any) => (
+                <div key={category._id} className="border-b p-4 flex flex-col gap-2 mb-4 bg-gray-50">
                   <div>
                     <span className="font-bold text-sm text-gray-700">Category Name:</span>
-                    <span className="text-sm text-gray-900 ml-2">{customer.categoryName}</span>
+                    <span className="text-sm text-gray-900 ml-2">{category.categoryName}</span>
                   </div>
                  
                   <div className="flex gap-2 mt-2">
                     <Link
-                      to={`edit-category/${customer._id}`}
+                      to={`edit-category/${category._id}`}
                     >
                       <AtmButtonField
                         onClick={handleEdit}
@@ -118,7 +118,7 @@ const CategoryListForm: React.FC<Props> = ({ customerData, deleteCustomer ,isLoa
                     
                     <AtmButtonField
                       label="Delete"
-                      onClick={() => deleteCustomer(customer._id)}
+                      onClick={() => deleteCategory(category._id)}
                       className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200 w-full"
                     />
                   </div>

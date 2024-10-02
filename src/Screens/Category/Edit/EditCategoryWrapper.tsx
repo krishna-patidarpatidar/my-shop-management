@@ -11,10 +11,9 @@ const EditCategoryWrapper: React.FC = () => {
 
     const navigate = useNavigate()
     const { id } = useParams()
-    const [editCustomer] = useCategoryEditMutation()
+    const [editCategory] = useCategoryEditMutation()
     const { data } = useGetSingleCategoryQuery({ token, id })
     const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
-    console.log(data?.data?.categoryName)
     return (
         <div>
             <Formik
@@ -29,7 +28,7 @@ const EditCategoryWrapper: React.FC = () => {
                 })}
                 onSubmit={(values, { setSubmitting }) => {
 
-                    editCustomer({ categoryData: values, token, id })
+                    editCategory({ categoryData: values, token, id })
                         .then((res: any) => {
                             if (res.data.status) {
                                 Toast.successMsg(res.data.msg)

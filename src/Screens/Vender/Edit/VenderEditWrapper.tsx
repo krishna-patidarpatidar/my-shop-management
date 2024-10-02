@@ -1,47 +1,62 @@
 import { Form, Formik } from 'formik';
 import React from 'react';
 import * as Yup from 'yup'; // Optional: if you plan to use validation
-import { useCustomerEditMutation } from '../../../Service/CustomerApi/CustomerSlice';
-import { useParams, useSearchParams } from 'react-router-dom';
+import { useNavigate, useParams ,useOutletContext} from 'react-router-dom';
+import Toast from '../../../Config/Toast';
 import VenderForm from '../Layout/VenderForm';
+import { useGetSingleVenderQuery, useVenderEditMutation } from '../../../Service/VenderApi/VenderSlice';
 
 const VenderEditWrapper: React.FC = () => {
-    const {id}= useParams()
-    const [queryParams] = useSearchParams()
-    const name = queryParams.get("name")
-    const mobile = queryParams.get("mobile")
-    const address = queryParams.get("address")
-    const [editCustomer] = useCustomerEditMutation()
+    const navigate=useNavigate()
+    const token = localStorage.getItem("auth")
 
+    const {id}= useParams()
+    const {data}=useGetSingleVenderQuery({token,id})
+    const [editVender] = useVenderEditMutation()
+    const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
     return (
         <div>
             <Formik
+            enableReinitialize={true}
                 initialValues={{
-                    name: name,
-                    mobile: mobile,
-                    address: address
+                    name: data?.data.name,
+                    mobile: data?.data.mobile,
+                    address: data?.data.address
                 }}
                 validationSchema={Yup.object({
-                    name: Yup.string().required('Customer name is required'),
-                    mobile: Yup.string().required('Mobile number is required'),
-                    address: Yup.string().required('Address is required'),
+                    name: Yup.string()
+                    .required('Vender name is required')
+                    .min(2, 'Vender name must be at least 2 characters'),
+                  
+                    mobile: Yup.string()
+                    .required('Mobile number is required')
+                    // .matches(/^[0-9]+$/, 'Mobile number must contain only digits')
+                    .length(10, 'Mobile number must be exactly 10 digits'),
+                  
+                  address: Yup.string()
+                    .required('Address is required')
+                    .min(3, 'Address must be at least 3 characters'),
                 })}
                 onSubmit={(values, { setSubmitting }) => {
-                    const token = localStorage.getItem("auth")
-                    console.log(values); // Handle the form submission
 
-                    editCustomer({ customerData: values, token,id})
-                    .then((res)=>{
-                        console.log(res)
+                    editVender({ venderData: values, token,id})
+                    .then((res:any)=>{
+                        if (res.data.status) {
+                        Toast.successMsg(res.data.msg)
+                            
+                        } else {
+                            Toast.errorMsg(res.data.msg)
+                        }
                     })
                     setSubmitting(false);
-
-
+                    navigate('/admin/vender')
+                    setEdit(false)
                     
                 }}
             >
-                {formikProps => (
-                    <Form>
+                {({handleSubmit,...formikProps}) => (
+                    <Form onSubmit={handleSubmit}>
+                        
                         <VenderForm formikProps={formikProps} />
                     </Form>
                 )}

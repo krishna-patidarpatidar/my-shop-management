@@ -8,7 +8,8 @@ import { useCreateCategoryMutation } from '../../../Service/Category/CategoryApi
 
 const AddCategoryWrapper: React.FC = () => {
     const navigate = useNavigate()
-    const [createCustomer] = useCreateCategoryMutation()
+    const token = localStorage.getItem("auth")
+    const [createCategory] = useCreateCategoryMutation()
     const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
 
     return (
@@ -25,12 +26,9 @@ const AddCategoryWrapper: React.FC = () => {
                   
                 })}
                 onSubmit={(values, { setSubmitting }) => {
-                    const token = localStorage.getItem("auth")
-                    console.log(values); // Handle the form submission
 
-                    createCustomer({ categoryData: values, token })
+                    createCategory({ categoryData: values, token })
                         .then((res:any) => {
-                            console.log(res.data.status)
                             if (res.data.status) {
                             Toast.successMsg(res.data.msg)
                                 navigate('/admin/category')

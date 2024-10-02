@@ -1,6 +1,7 @@
 import React from 'react';
 import AtmTextField from '../../../Components/atoms/Input/AtmTypeText/AtmTextField';
 import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
+import { useOutletContext } from 'react-router-dom';
 
 type FormikProps = {
   values: {
@@ -18,30 +19,36 @@ type Props = {
 };
 
 const VenderForm: React.FC<Props> = ({ formikProps }) => {
-  const { values, handleChange, handleBlur, isSubmitting } = formikProps;
+  const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
+
+  const { values, handleChange, handleBlur, isSubmitting,touched,errors }:any = formikProps;
 
   return (
-    <div className="min-h-screen flex items-center justify-center bg-gradient-to-r from-blue-100 via-purple-100 to-blue-100 bg-transparent">
-      <div className="bg-white shadow-lg rounded-lg p-8 w-full max-w-md">
-        <h1 className="text-2xl font-semibold text-gray-800 mb-6 text-center">vender Data</h1>
+    <div className=" flex items-center justify-center">
+      <div className="bg-white shadow-lg rounded-lg w-full p-5 max-w-md">
+      <span className='right-6 top-3 absolute text-2xl text-red-700 cursor-pointer p-3' onClick={()=>setEdit((false))}>X</span>
+        <h1 className="text-4xl font-semibold text-gray-800 mb-6 text-center">Vender Data </h1>
         
         {/* Name Field */}
         <div className="mb-4">
           <AtmTextField
-           label='vender name'
+           label='vender Name'
             name="name"
             value={values.name}
-            placeholder="vender Name"
+            placeholder="Vender Name"
             onChange={handleChange}
             onBlur={handleBlur}
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
+          {touched.name && errors.name && (
+            <div className="text-red-600 absolute text-sm">{errors.name}</div>
+          )}
         </div>
         
         {/* Mobile Number Field */}
         <div className="mb-4">
           <AtmTextField
-            label='vender mobile no.'
+            label='Vender Mobile Number.'
             name="mobile"
             value={values.mobile}
             placeholder="vender Mobile Number"
@@ -49,12 +56,15 @@ const VenderForm: React.FC<Props> = ({ formikProps }) => {
             onBlur={handleBlur}
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
+          {touched.mobile && errors.mobile && (
+            <div className="text-red-600 absolute text-sm">{errors.mobile}</div>
+          )}
         </div>
         
         {/* Address Field */}
         <div className="mb-6">
           <AtmTextField
-            label='vender address'
+            label='Vender Address'
             name="address"
             value={values.address}
             placeholder="vender Address"
@@ -62,12 +72,15 @@ const VenderForm: React.FC<Props> = ({ formikProps }) => {
             onBlur={handleBlur}
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
+          {touched.address && errors.address && (
+            <div className="text-red-600 absolute text-sm">{errors.address}</div>
+          )}
         </div>
 
         {/* Submit Button */}
         <div className="text-center">
           <AtmButtonField
-            label={isSubmitting ? 'Saving...' : 'Save vender'}
+            label={isSubmitting ? 'Saving...' : 'Save Vender'}
             disabled={isSubmitting}
             className={`w-full py-3 bg-blue-600 text-white rounded-lg transition-all duration-200 ${
               isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-500'

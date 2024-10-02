@@ -1,16 +1,41 @@
-import { useGetTransactionQuery } from '../../Service/Dashbord/DashbordSlice'
-import Dashboard from './Dashboard'
-
-
+import { useState } from 'react';
+import { useGetBillsCountQuery, useGetCustomerCountsQuery, useGetTransactionQuery, useGetVendersCountQuery } from '../../Service/Dashbord/DashbordSlice';
+import Dashboard from './Dashboard';
 
 const DashbordWrapper = () => {
-    const token=localStorage.getItem("auth")
-    const {data} = useGetTransactionQuery({token,time})
+  const token = localStorage.getItem("auth");
+
+  // Local state for the time range
+  const [timeBillRange, setTimeBillRange] = useState('day');
+  const [timeTransactionRange, setTimeTransactionRange] = useState('day');
+
+  // Fetch transaction and customer count based on time range
+  const { data: transactionData } = useGetTransactionQuery({ token, time: timeTransactionRange });
+  const { data: customerCountData } = useGetCustomerCountsQuery({ token });
+  const { data: venderCountData } = useGetVendersCountQuery({ token });
+  const {data: billCoutntData}=useGetBillsCountQuery({token,time:timeBillRange})
+  // Handle time range change
+  const handleTimeRangeTransactionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setTimeTransactionRange(event.target.value);
+  };
+  const handleTimeRangeBillChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
+    setTimeBillRange(event.target.value);
+  };
+
   return (
     <div>
-        <Dashboard/>
+      <Dashboard
+        timeBillRange={timeBillRange}  // Passing timeRange to Dashboard
+        timeTransactionRange={timeTransactionRange}  // Passing timeRange to Dashboard
+        transactionData={transactionData}  // Passing fetched transaction data
+        customerCount={customerCountData}  // Passing fetched customer count
+        venderCount={venderCountData}  // Passing fetched vender count
+        onTimeRangeBillChange={handleTimeRangeBillChange}  // Passing the time range change handler
+        onTimeRangeTransactionChange={handleTimeRangeTransactionChange}  // Passing the time range change handler
+        billCoutntData={billCoutntData}
+      />
     </div>
-  )
-}
+  );
+};
 
-export default DashbordWrapper
+export default DashbordWrapper;
