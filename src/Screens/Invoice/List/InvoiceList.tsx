@@ -62,7 +62,7 @@ const InvoiceList = ({data,handleDelete}:any) => {
                             ))
                         ) : (
                             <tr>
-                                <td colSpan="5" className="p-2 text-center">No invoices found.</td>
+                                <td colSpan={5} className="p-2 text-center">No invoices found.</td>
                             </tr>
                         )}
                     </tbody>

@@ -15,15 +15,12 @@ type Props = {
   deleteCustomer: (id: string) => void;
 };
 
-const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer ,isLoading}:any) => {
-  console.log(isLoading)
+const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }:any) => {
   const [edit, setEdit] = useState(false);
   const handleEdit = () => {
     setEdit(true);
-    console.log('editcalerur');
   };
 
-  console.log(edit);
 
   return (
     <div className="container mx-auto p-4 mt-40 text-xl relative">

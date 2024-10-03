@@ -1,8 +1,9 @@
+import { useNavigate } from 'react-router-dom';
+import Toast from '../../../Config/Toast';
 import { useCreateInvoiceMutation } from '../../../Service/InvoiceApi/InvoiceApiSlice';
 import InvoiceForm from '../InvoiceLayout/InvoiceForm';
 import { Formik } from 'formik';
 
-type Props = {}
 
 const initialValues = {
     invoiceDate: '',
@@ -26,19 +27,24 @@ const initialValues = {
 const AddInvoiceWrapper = () => {
     const [createBill] = useCreateInvoiceMutation();
     const token = localStorage.getItem("auth");
-
+    const navigate=useNavigate()
     return (
         <div>
             <Formik
                 initialValues={initialValues}
-                onSubmit={async (values, { resetForm }) => {
+                onSubmit={async (values, { setSubmitting }) => {
                     try {
-                        const response = await createBill({ billData: values, token });
-                        console.log(response);
-                        // Optionally reset the form after submission
-                        resetForm();
+                        const response:any = await createBill({ billData: values, token });
+                        if (response?.data.data.status) {
+                            Toast.successMsg(response?.data.data.msg)
+                            navigate('/admin/invoice')
+                        } else {
+                            Toast.errorMsg(response?.data.data.msg)
+                        }
                     } catch (err) {
                         console.log(err);
+                    } finally{
+                        setSubmitting(false)
                     }
                 }}
             >
