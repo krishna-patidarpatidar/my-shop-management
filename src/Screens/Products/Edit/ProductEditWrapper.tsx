@@ -9,8 +9,7 @@ import Toast from '../../../Config/Toast';
 const ProductEditWrapper: React.FC = () => {
   const [editProduct] = useEditProductsMutation();
   const { id } = useParams()
-  const token = localStorage.getItem('auth');
-  const { data } = useGetSingleProductsQuery({ token, id })
+  const { data } = useGetSingleProductsQuery({ id })
   const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
 
   console.log(data)
@@ -33,7 +32,7 @@ const ProductEditWrapper: React.FC = () => {
 
   // Submit handler
   const handleSubmit = (values: any, { setSubmitting }: any) => {
-    editProduct({ productData: values, token, id })
+    editProduct({ productData: values, id })
       .then((res: any) => {
         if (res.data.status) {
           Toast.successMsg(res.data.msg)

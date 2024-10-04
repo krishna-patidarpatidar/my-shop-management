@@ -34,10 +34,9 @@ const CustomerAddWrapper: React.FC = () => {
                     .min(3,"must be a 3 letter " )
                 })}
                 onSubmit={(values, { setSubmitting }) => {
-                    const token = localStorage.getItem("auth")
                     console.log(values); // Handle the form submission
 
-                    createCustomer({ customerData: values, token })
+                    createCustomer({ customerData: values })
                         .then((res:any) => {
                             console.log(res.data.status)
                             if (res.data.status) {

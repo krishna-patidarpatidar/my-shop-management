@@ -6,8 +6,7 @@ import Swal from 'sweetalert2';
 type Props = {};
 
 const ProductListWrapper: React.FC<Props> = () => {
-  const token = localStorage.getItem("auth")
-  const { data, isError, isLoading }: any = useGetProductsQuery({ token });
+  const { data, isError, isLoading }: any = useGetProductsQuery();
   const [deleteProductById] = useDeleteProductsMutation()
   // Handle loading state
   if (isLoading) {
@@ -30,7 +29,7 @@ const ProductListWrapper: React.FC<Props> = () => {
     }).then(async (result: any) => {
       if (result.isConfirmed) {
         try {
-          await deleteProductById({ id, token });
+          await deleteProductById({ id});
           Swal.fire('Deleted!', 'The customer has been deleted.', 'success');
         } catch (error) {
           Swal.fire('Error!', 'There was a problem deleting the customer.', 'error');

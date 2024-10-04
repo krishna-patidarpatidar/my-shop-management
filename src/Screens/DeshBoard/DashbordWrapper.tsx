@@ -3,17 +3,16 @@ import { useGetBillsCountQuery, useGetCustomerCountsQuery, useGetTransactionQuer
 import Dashboard from './Dashboard';
 
 const DashbordWrapper = () => {
-  const token = localStorage.getItem("auth");
 
   // Local state for the time range
   const [timeBillRange, setTimeBillRange] = useState('day');
   const [timeTransactionRange, setTimeTransactionRange] = useState('day');
 
   // Fetch transaction and customer count based on time range
-  const { data: transactionData } = useGetTransactionQuery({ token, time: timeTransactionRange });
-  const { data: customerCountData } = useGetCustomerCountsQuery({ token });
-  const { data: venderCountData } = useGetVendersCountQuery({ token });
-  const {data: billCoutntData}=useGetBillsCountQuery({token,time:timeBillRange})
+  const { data: transactionData } = useGetTransactionQuery({ time: timeTransactionRange });
+  const { data: customerCountData } = useGetCustomerCountsQuery();
+  const { data: venderCountData } = useGetVendersCountQuery();
+  const {data: billCoutntData}=useGetBillsCountQuery({time:timeBillRange})
   // Handle time range change
   const handleTimeRangeTransactionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setTimeTransactionRange(event.target.value);

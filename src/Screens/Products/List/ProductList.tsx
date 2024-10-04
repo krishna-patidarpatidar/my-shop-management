@@ -18,8 +18,7 @@ type Props = {
 
 const ProductList: React.FC<Props> = ({ productData,deleteProduct }) => {
   const [edit, setEdit] = useState(false);
-  const token = localStorage.getItem('auth');
-  const { data, isLoading } = useGetCategoryQuery({ token })
+  const { data, isLoading } = useGetCategoryQuery()
 
   const handleEdit = () => {
     setEdit(true);

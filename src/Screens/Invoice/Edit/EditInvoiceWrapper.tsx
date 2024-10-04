@@ -4,7 +4,6 @@ import InvoiceForm from '../InvoiceLayout/InvoiceForm';
 import { Formik } from 'formik';
 import { useParams } from 'react-router-dom';
 
-type Props = {}
 
 const initialValues = {
     invoiceDate: '',
@@ -25,10 +24,9 @@ const initialValues = {
     discount: ''  // discount in rupee
 };
 
-const EditInvoiceWrapper = (props: Props) => {
-  const token = localStorage.getItem("auth");
+const EditInvoiceWrapper = () => {
   const { id } = useParams();
-  const { data, isError, isLoading } = useGetCustomerInvoiceQuery({ token, id });
+  const { data} = useGetCustomerInvoiceQuery({ id });
   
   
   console.log(data, "data bill");
@@ -40,7 +38,7 @@ const EditInvoiceWrapper = (props: Props) => {
                 initialValues={initialValues}
                 onSubmit={async (values, { resetForm }) => {
                     try {
-                        const response = await createBill({ billData: values, token });
+                        const response = await createBill({ billData: values});
                         console.log(response);
                         // Optionally reset the form after submission
                         resetForm();

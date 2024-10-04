@@ -8,7 +8,6 @@ import { useNavigate, useOutletContext } from 'react-router-dom';
 
 const ProductAddWrapper: React.FC = () => {
   const [addProduct] = useAddProductsMutation();
-  const token = localStorage.getItem('auth');
   const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
 
 const navigate=useNavigate()
@@ -29,7 +28,7 @@ const navigate=useNavigate()
   });
 
   const handleSubmit = (values: any,{setSubmitting}:any) => {
-      addProduct({  productData: values,token})
+      addProduct({  productData: values})
     .then((res:any)=>{
       if (res.data.status) {
         Toast.successMsg(res.data.msg)

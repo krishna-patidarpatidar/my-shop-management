@@ -8,9 +8,8 @@ import { useReactToPrint } from 'react-to-print';
 
 const ShowInviceWrapper = () => {
   const contentToPrint = useRef(null);
-    const token = localStorage.getItem("auth");
     const { id } = useParams();
-    const { data, isError, isLoading } = useGetCustomerInvoiceQuery({ token, id });
+    const { data, isError, isLoading } = useGetCustomerInvoiceQuery({  id });
     
     
     console.log(data, "data bill");

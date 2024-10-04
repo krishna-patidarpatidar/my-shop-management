@@ -7,12 +7,11 @@ import CategoryForm from '../Layout/CategoryForm';
 import { useCategoryEditMutation, useGetSingleCategoryQuery } from '../../../Service/Category/CategoryApiSlice';
 
 const EditCategoryWrapper: React.FC = () => {
-    const token = localStorage.getItem("auth")
 
     const navigate = useNavigate()
     const { id } = useParams()
     const [editCategory] = useCategoryEditMutation()
-    const { data } = useGetSingleCategoryQuery({ token, id })
+    const { data } = useGetSingleCategoryQuery({  id })
     const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
     return (
         <div>
@@ -28,7 +27,7 @@ const EditCategoryWrapper: React.FC = () => {
                 })}
                 onSubmit={(values, { setSubmitting }) => {
 
-                    editCategory({ categoryData: values, token, id })
+                    editCategory({ categoryData: values, id })
                         .then((res: any) => {
                             if (res.data.status) {
                                 Toast.successMsg(res.data.msg)

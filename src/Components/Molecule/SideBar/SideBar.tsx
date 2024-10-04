@@ -83,7 +83,7 @@ const SideBar = ({ isSidebarOpen, closeSidebar }: any) => {
 
         <div
           className="relative"
-          onMouseEnter={() => setShowSubMenu1(true)}
+          onMouseDown={() => setShowSubMenu1(true)}
           onMouseLeave={() => setShowSubMenu1(false)}
         >
           <div className="flex py-2 md:py-4 gap-4 font-bold">

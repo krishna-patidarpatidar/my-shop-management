@@ -30,7 +30,7 @@ const LoginWrapper: React.FC = () => {
                if (res.data.status) {
                 localStorage.setItem('auth', res.data.token);
                 Toast.successMsg(res.data.msg);
-                navigate('/admin');
+                navigate('/admin/deshBord');
               } else {
                 Toast.errorMsg(res.data.msg);
               }

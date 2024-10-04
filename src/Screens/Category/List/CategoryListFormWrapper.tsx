@@ -5,9 +5,8 @@ import CategoryListForm from './CategoryListForm';
 import { useCategoryDeleteMutation, useGetCategoryQuery } from '../../../Service/Category/CategoryApiSlice';
 
 const CategoryListFormWrapper: React.FC = () => {
-  const token = localStorage.getItem("auth");
 
-  const { data, isError, isLoading }: any = useGetCategoryQuery({ token });
+  const { data, isError, isLoading }: any = useGetCategoryQuery();
   const [deleteCategoryById] = useCategoryDeleteMutation();
 
   // Handle customer deletion

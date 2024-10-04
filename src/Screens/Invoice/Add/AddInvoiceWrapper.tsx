@@ -26,7 +26,6 @@ const initialValues = {
 
 const AddInvoiceWrapper = () => {
     const [createBill] = useCreateInvoiceMutation();
-    const token = localStorage.getItem("auth");
     const navigate=useNavigate()
     return (
         <div>
@@ -34,7 +33,7 @@ const AddInvoiceWrapper = () => {
                 initialValues={initialValues}
                 onSubmit={async (values, { setSubmitting }) => {
                     try {
-                        const response:any = await createBill({ billData: values, token });
+                        const response:any = await createBill({ billData: values});
                         if (response?.data.data.status) {
                             Toast.successMsg(response?.data.data.msg)
                             navigate('/admin/invoice')
