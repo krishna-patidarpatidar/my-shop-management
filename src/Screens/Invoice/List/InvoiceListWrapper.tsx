@@ -4,7 +4,7 @@ import InvoiceList from './InvoiceList';
 
 const InvoiceListWrapper = () => {
     const [DeleteBill] = useDeleteInvoiceMutation()
-    const { data, isError, isLoading } = useGetAllInvoiceQuery();
+    const { data, isError, isLoading } = useGetAllInvoiceQuery('');
     // console.log(data)
     if (isLoading) {
         return <div>Loading...</div>;

@@ -82,6 +82,11 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }:any) => 
                           onClick={() => deleteCustomer(customer._id)}
                           className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200"
                         />
+                        <AtmButtonField
+                          label="ShowTransaction"
+                          onClick={() => deleteCustomer(customer._id)}
+                          className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200"
+                        />
                       </div>
                     </td>
                   </tr>

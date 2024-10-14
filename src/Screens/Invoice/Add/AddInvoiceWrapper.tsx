@@ -3,56 +3,84 @@ import Toast from '../../../Config/Toast';
 import { useCreateInvoiceMutation } from '../../../Service/InvoiceApi/InvoiceApiSlice';
 import InvoiceForm from '../InvoiceLayout/InvoiceForm';
 import { Formik } from 'formik';
+import { useGetCustomerQuery } from '../../../Service/CustomerApi/CustomerSlice';
+import { useGetProductsQuery } from '../../../Service/Products/ProductSlice';
+import { useEffect, useState } from 'react';
 
+interface InvoiceFormValues {
+  invoiceDate: string;
+  dueDate: string;
+  customerId: string;
+  products: { productId: string; quantity: number }[];
+  onlineAmount: number;
+  cashAmount: number;
+  discount: number;
+}
 
-const initialValues = {
-    invoiceDate: '',
-    dueDate: '',
-    customer: {
-        name: '',
-        address: '',
-        mobile: ''
-    },
-    products: [{
-        name: '',
-        quantity: '',
-        price: '',
-        total: '',
-    }],
-    onlineAmount: '',
-    cashAmount: '',
-    discount: ''  // discount in rupee
+const initialValues: InvoiceFormValues = {
+  invoiceDate: '',
+  dueDate: '',
+  customerId: '',
+  products: [{ productId: '', quantity: 0 }],
+  onlineAmount: 0,
+  cashAmount: 0,
+  discount: 0,
 };
 
 const AddInvoiceWrapper = () => {
-    const [createBill] = useCreateInvoiceMutation();
-    const navigate=useNavigate()
-    return (
-        <div>
-            <Formik
-                initialValues={initialValues}
-                onSubmit={async (values, { setSubmitting }) => {
-                    try {
-                        const response:any = await createBill({ billData: values});
-                        if (response?.data.data.status) {
-                            Toast.successMsg(response?.data.data.msg)
-                            navigate('/admin/invoice')
-                        } else {
-                            Toast.errorMsg(response?.data.data.msg)
-                        }
-                    } catch (err) {
-                        console.log(err);
-                    } finally{
-                        setSubmitting(false)
-                    }
-                }}
-            >
-                {(formikProps) => (
-                    <InvoiceForm formikProps={formikProps} />
-                )}
-            </Formik>
-        </div>
-    )
-}
+  const [customers, setCustomers] = useState([]);
+  const { data: customerData } = useGetCustomerQuery('');
+  const { data: productData } = useGetProductsQuery('');
+  const [createBill] = useCreateInvoiceMutation();
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    setCustomers((customerData as any)?.data || []);
+  }, [customerData]);
+
+  const handleSubmit = async (values: InvoiceFormValues, { setSubmitting }: any) => {
+    try {
+      const formattedData = {
+        dueDate: values.dueDate,
+        customerId: values.customerId,
+        products: values.products.map((p) => ({
+          productId: p.productId,
+          quantity: p.quantity,
+        })),
+        onlineAmount: values.onlineAmount,
+        cashAmount: values.cashAmount,
+        discountAmount: values.discount,
+      };
+
+      const response: any = await createBill({ billData: formattedData });
+      console.log(response);
+
+      if (response?.data?.data?.status) {
+        Toast.successMsg(response?.data?.data?.msg);
+        navigate('/admin/invoice');
+      } else {
+        Toast.errorMsg(response?.data?.data?.msg);
+      }
+    } catch (err) {
+      console.log(err);
+    } finally {
+      setSubmitting(false);
+    }
+  };
+
+  return (
+    <div>
+      <Formik initialValues={initialValues} onSubmit={handleSubmit}>
+        {(formikProps) => (
+          <InvoiceForm
+            formikProps={formikProps}
+            customerData={customers}
+            productData={productData?.data || []}
+          />
+        )}
+      </Formik>
+    </div>
+  );
+};
 
 export default AddInvoiceWrapper;

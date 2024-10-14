@@ -2,14 +2,15 @@ import React from 'react';
 import { useCustomerDeleteMutation, useGetCustomerQuery } from '../../../Service/CustomerApi/CustomerSlice';
 import CustomerList from './CustomerList';
 import Swal from 'sweetalert2';
-import Hourglass from '../../../Components/Molecule/Skeleton/TableSkeleton';
+import TableSkeleton from '../../../Components/Molecule/Skeleton/TableSkeleton';
 
 const CustomerListWrapper: React.FC = () => {
-  const token = localStorage.getItem("auth");
 
-  const { data :customerdata, isError, isLoading }: any = useGetCustomerQuery({ token });
+  const { data :customerdata, isError, isLoading }: any = useGetCustomerQuery('');
   const [deleteCustomerById] = useCustomerDeleteMutation();
-  
+    
+console.log(customerdata,"customerData")
+
   // Handle customer deletion
   const handleDelete = async (customerId: string) => {
     Swal.fire({
@@ -23,7 +24,7 @@ const CustomerListWrapper: React.FC = () => {
     }).then(async (result) => {
       if (result.isConfirmed) {
         try {
-          await deleteCustomerById({ id: customerId, token });
+          await deleteCustomerById({ id: customerId});
           Swal.fire('Deleted!', 'The customer has been deleted.', 'success');
         } catch (error) {
           Swal.fire('Error!', 'There was a problem deleting the customer.', 'error');
@@ -36,7 +37,7 @@ const CustomerListWrapper: React.FC = () => {
   if (isError) return <div className='mt-60 ml-60'>Error fetching customers</div>;
   return (
     <div>
-      {isLoading ? <Hourglass /> : <CustomerList customerData={customerdata?.data || []}
+      {isLoading ? <TableSkeleton /> : <CustomerList customerData={customerdata?.data || []}
         deleteCustomer={handleDelete} isLoading={isLoading} />}
     </div>
   );

@@ -23,6 +23,7 @@ import DashbordWrapper from "../Screens/DeshBoard/DashbordWrapper";
 import VenderListWrapper from "../Screens/Vender/List/VenderListWrapper";
 import VenderAddWrapper from "../Screens/Vender/Add/VenderAddWrapper";
 import VenderEditWrapper from "../Screens/Vender/Edit/VenderEditWrapper";
+import CustomerTracsactionWrapper from "../Screens/Customers/Transactions/customerTracsactionWrapper";
 
 const pageRoute = createBrowserRouter([
     {
@@ -47,6 +48,10 @@ const pageRoute = createBrowserRouter([
                         path: 'edit-customer/:id',
                         element: <CustomerEditWrapper />
                     },
+                    {
+                        path: 'transactions/:id',
+                        element: <CustomerTracsactionWrapper />
+                    },
                 ])
             },
             {
@@ -55,7 +60,7 @@ const pageRoute = createBrowserRouter([
                 children: ([
                     {
                         path: 'add-vender',
-                        element: <VenderAddWrapper/>
+                        element: <VenderAddWrapper />
                     },
                     {
                         path: 'edit-vender/:id',
@@ -78,17 +83,20 @@ const pageRoute = createBrowserRouter([
             {
                 path: 'invoice', element: <InvoiceListWrapper />,
                 children: [
-                    {
-                        path: 'add-invoice', element: <AddInvoiceWrapper />
-                    },
+
                     {
                         path: 'edit-invoice/:id', element: <EditInvoiceWrapper />
                     },
                     {
-                        path: 'show-invoice/:id', element: <ShowInviceWrapper />
+                        path: 'show-invoice/:billId', element: <ShowInviceWrapper />
                     },
                 ]
             },
+
+            {
+                path: 'invoice/add-invoice', element: <AddInvoiceWrapper />
+            },
+
             {
                 path: 'category', element: <CategoryListFormWrapper />,
                 children: ([
@@ -121,6 +129,9 @@ const pageRoute = createBrowserRouter([
 
         ]
     },
+    // {
+    //     path:'/',element:<CustomerListWrapper/>
+    // }
 ]);
 
 const Route = () => {

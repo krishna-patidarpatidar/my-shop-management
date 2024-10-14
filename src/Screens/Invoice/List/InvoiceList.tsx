@@ -46,7 +46,7 @@ const InvoiceList = ({ data, handleDelete }: any) => {
                                                 <Link to={`payment-in/${invoice._id}`}>Pay In</Link>
                                             </button>
                                             <button className="px-2 py-1 text-white bg-blue-500 rounded">
-                                                <Link to={`show-invoice/${invoice.invoiceNumber}`}>View</Link>
+                                                <Link to={`show-invoice/${invoice._id}`}>View</Link>
                                             </button>
                                             <button className='px-2 py-1 text-white bg-gray-700 rounded'>
                                                 <Link to={`edit-invoice/${invoice.invoiceNumber}`}>Edit</Link>

@@ -39,7 +39,7 @@ const ShowInvoice: React.FC<ShowInvoiceProps> = ({ data, handlePrint, contentToP
                     <div className="flex justify-between mt-4">
                         <div className="mb-4 md:mb-0">
                             <h1>INVOICE TO :</h1>
-                            <h1 className="text-sm md:text-xl">{data?.customerName}</h1>
+                            <h1 className="text-sm md:text-xl">{data?.customerId.name}</h1>
                             <h1 className="text-[10px] md:text-sm">Mo.No: {data?.customerMobile}</h1>
                         </div>
                         <div className="text-center">
@@ -69,11 +69,11 @@ const ShowInvoice: React.FC<ShowInvoiceProps> = ({ data, handlePrint, contentToP
                                     <tr key={product._id}>
                                         <td className="p-4">{i + 1}</td>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 text-left">
-                                            {product.name}
+                                            {product.productId.name}
                                         </th>
                                         <td className="px-6 py-4">{product.quantity}</td>
-                                        <td className="px-6 py-4">{product.price}</td>
-                                        <td className="px-6 py-4">{product.total}</td>
+                                        <td className="px-6 py-4">{product.productId.sellingPrice}</td>
+                                        <td className="px-6 py-4">{product.productId.sellingPrice*product.quantity}</td>
                                     </tr>
                                 ))}
                                 <tr>
