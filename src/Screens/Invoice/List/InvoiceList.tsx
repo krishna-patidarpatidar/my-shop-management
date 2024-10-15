@@ -2,6 +2,7 @@ import { Link, Outlet, useLocation } from 'react-router-dom'
 import { formatDate } from '../../../Components/Molecule/DateHelper/DateHelper'
 
 const InvoiceList = ({ data, handleDelete }: any) => {
+    console.log(data)
     const location = useLocation()
     return (
         <div className=" max-w-[70%] mt-40 mx-auto">
@@ -37,7 +38,7 @@ const InvoiceList = ({ data, handleDelete }: any) => {
                                     <tr key={invoice._id} className='border'>
                                         <td className="p-2">{invoice.invoiceNumber}</td>
                                         <td className="p-2">{formatDate(invoice.invoiceDate)}</td>
-                                        <td className="p-2">{invoice.customerName}</td>
+                                        <td className="p-2">{invoice.customerId.name}</td>
                                         <td className="p-2">{invoice.totalAmount}</td>
                                         <td className="p-2">{invoice.dueAmount}</td>
                                         <td className="p-2">{invoice.status}</td>
@@ -46,7 +47,7 @@ const InvoiceList = ({ data, handleDelete }: any) => {
                                                 <Link to={`payment-in/${invoice._id}`}>Pay In</Link>
                                             </button>
                                             <button className="px-2 py-1 text-white bg-blue-500 rounded">
-                                                <Link to={`show-invoice/${invoice._id}`}>View</Link>
+                                                <Link to={`show-invoice/${invoice.invoiceNumber}`}>View</Link>
                                             </button>
                                             <button className='px-2 py-1 text-white bg-gray-700 rounded'>
                                                 <Link to={`edit-invoice/${invoice.invoiceNumber}`}>Edit</Link>

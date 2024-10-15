@@ -12,7 +12,7 @@ const ShowInvoice: React.FC<ShowInvoiceProps> = ({ data, handlePrint, contentToP
         return new Date(date).toLocaleDateString(undefined, options);
     };
     return (
-        <div className='text-center'>
+        <div className='text-center mt-40'>
             <button onClick={handlePrint}>PRINT</button>
 
             <div ref={contentToPrint} className="mt-3">

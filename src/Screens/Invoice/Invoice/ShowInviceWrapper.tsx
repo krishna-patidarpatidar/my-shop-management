@@ -9,8 +9,8 @@ import { useReactToPrint } from 'react-to-print';
 const ShowInviceWrapper = () => {
   const contentToPrint = useRef(null);
     const { billId } = useParams();
-    console.log(billId)
-    const { data, isError, isLoading } = useGetCustomerInvoiceQuery({  billId });
+    console.log(billId,"bill id")
+    const { data, isError, isLoading } = useGetCustomerInvoiceQuery({billId});
     
     
     console.log(data, "data bill");

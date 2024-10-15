@@ -25,18 +25,18 @@ const CustomerEditWrapper: React.FC = () => {
                 }}
                 validationSchema={Yup.object({
                     name: Yup.string()
-                    .required('Customer name is required')
-                    .min(2, 'Customer name must be at least 2 characters'),
+                      .required('Customer name is required')
+                      .min(2, 'Customer name must be at least 2 characters'),
                   
                     mobile: Yup.string()
-                    .required('Mobile number is required')
-                    // .matches(/^[0-9]+$/, 'Mobile number must contain only digits')
-                    .length(10, 'Mobile number must be exactly 10 digits'),
+                      .required('Mobile number is required')
+                      .matches(/^[6789]\d{9}$/, 'Mobile number must be a valid 10-digit Indian mobile number starting with 7, 8, or 9'),
                   
-                  address: Yup.string()
-                    .required('Address is required')
-                    .min(3, 'Address must be at least 3 characters'),
-                })}
+                    address: Yup.string()
+                      .required('Address is required')
+                      .min(3, 'Address must be at least 3 characters long'),
+                  })}
+                  
                 onSubmit={(values, { setSubmitting }) => {
 
                     editCustomer({ customerData: values, token,id})

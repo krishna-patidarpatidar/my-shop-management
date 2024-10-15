@@ -1,18 +1,15 @@
-import { FieldArray, FormikProps } from 'formik';
+import { FieldArray } from 'formik';
 import { BsColumnsGap } from 'react-icons/bs';
 
 interface FormProps {
-  formikProps: FormikProps<any>;
-  customerData: any[];
-  productData: any[];
+  formikProps: any; // Replace any with proper types as needed
+  customerData: any; // Replace any with proper types as needed
+  productData: any; // Replace any with proper types as needed
 }
 
 const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
-  const { values, handleSubmit, setFieldValue, handleChange } = formikProps;
+  const { values, handleSubmit, setFieldValue, handleBlur, handleChange } = formikProps;
 
-  const calculateTotal = (products: any[]) =>
-    products.reduce((sum, product) => sum + product.quantity * product.price, 0);
-console.log(values)
   return (
     <div className="min-h-screen mt-40 bg-gray-50 text-gray-800 p-4">
       <div className="max-w-4xl mx-auto bg-white rounded-lg">
@@ -30,7 +27,8 @@ console.log(values)
               className="w-full px-3 py-2 border rounded-md"
             />
           </div>
-          {/* due Date */}
+
+          {/* Due Date */}
           <div className="mb-4">
             <label className="block text-lg font-semibold">Due Date</label>
             <input
@@ -43,62 +41,164 @@ console.log(values)
           </div>
 
           {/* Customer Details */}
-          <div className="mb-4">
-            <label className="block text-lg font-semibold">Customer</label>
-            <select
-              name="customerId"
-              value={values.customerId}
-              onChange={handleChange}
-              className="w-full p-3 border rounded-lg"
-            >
-              <option value="">Select a customer</option>
-              {customerData.map((customer) => (
-                <option key={customer._id} value={customer._id}>
-                  {customer.name}
-                </option>
-              ))}
-            </select>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
+            <div>
+              <label className="block text-lg font-semibold">Customer Name</label>
+              <select
+                name="customerId"
+                value={values.customerId}
+                onChange={(e) => {
+                  const selectedCustomer = customerData.find(
+                    (customer) => customer._id === e.target.value
+                  );
+                  setFieldValue('customerId', selectedCustomer._id);
+                  setFieldValue('customerName', selectedCustomer.name);
+                  setFieldValue('customerAddress', selectedCustomer.address);
+                  setFieldValue('customerMobile', selectedCustomer.mobile);
+                }}
+                onBlur={handleBlur}
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+              >
+                <option value="">Select a customer</option>
+                {customerData?.map((customer) => (
+                  <option key={customer._id} value={customer._id}>
+                    {customer.name}
+                  </option>
+                ))}
+              </select>
+            </div>
+
+            <div>
+              <label className="block text-lg font-semibold">Customer Address</label>
+              <input
+                name="customerAddress"
+                type="text"
+                value={values.customerAddress}
+                readOnly
+                className="w-full px-3 py-2 border rounded-md bg-gray-100"
+              />
+            </div>
+            <div>
+              <label className="block text-lg font-semibold">Customer Mobile</label>
+              <input
+                name="customerMobile"
+                type="text"
+                value={values.customerMobile}
+                readOnly
+                className="w-full px-3 py-2 border rounded-md bg-gray-100"
+              />
+            </div>
           </div>
 
           {/* Product Details */}
           <FieldArray name="products">
             {({ remove, push }) => (
-              <div>
+              <div className="mb-4">
                 <table className="w-full table-auto border-collapse bg-white">
                   <thead>
                     <tr className="bg-gray-100">
                       <th className="border py-2 px-4">Product</th>
                       <th className="border py-2 px-4">Quantity</th>
+                      <th className="border py-2 px-4">Price</th>
+                      <th className="border py-2 px-4">Total</th>
                       <th className="border py-2 px-4">Remove</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {values.products.map((product, index) => (
+                    {values?.products?.map((product, index) => (
                       <tr key={index}>
+                        {/* Product Selector */}
                         <td className="border p-2">
+                          {/*
+                          <select
+                name="customerId"
+                value={values.customerId}
+                onChange={(e) => {
+                  const selectedCustomer = customerData.find(
+                    (customer) => customer._id === e.target.value
+                  );
+                  setFieldValue('customerId', selectedCustomer._id);
+                  setFieldValue('customerName', selectedCustomer.name);
+                  setFieldValue('customerAddress', selectedCustomer.address);
+                  setFieldValue('customerMobile', selectedCustomer.mobile);
+                }}
+                onBlur={handleBlur}
+                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+              >
+                <option value="">Select a customer</option>
+                {customerData?.map((customer) => (
+                  <option key={customer._id} value={customer._id}>
+                    {customer.name}
+                  </option>
+                ))}
+              </select>
+                          */}
                           <select
                             name={`products.${index}.productId`}
                             value={product.productId}
-                            onChange={handleChange}
-                            className="w-full p-3 border rounded-lg"
+                            onChange={(e) => {
+                              const productId = e.target.value;
+                              const selectedProduct = productData.find((p) => p._id === productId);
+
+                              // if (selectedProduct) {
+                              // Update all relevant fields with selected product details
+                              setFieldValue(`products.${index}.productId`, selectedProduct._id);
+                              setFieldValue(`products.${index}.price`, selectedProduct.sellingPrice);
+                              setFieldValue(`products.${index}.quantity`, 1); // Default quantity 1
+                              setFieldValue(`products.${index}.total`, selectedProduct.sellingPrice);
+                              // }
+                            }}
+                            onBlur={handleBlur}
+                            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
                           >
                             <option value="">Select a product</option>
-                            {productData.map((prod) => (
-                              <option key={prod._id} value={prod._id}>
-                                {prod.name}
+                            {productData?.map((p) => (
+                              <option key={p._id} value={p._id}>
+                                {p.name}
                               </option>
                             ))}
                           </select>
                         </td>
+
+                        {/* Quantity Input */}
                         <td className="border p-2">
                           <input
                             name={`products.${index}.quantity`}
                             type="number"
                             value={product.quantity}
-                            onChange={handleChange}
+                            onChange={(e) => {
+                              const quantity = parseFloat(e.target.value || '0');
+                              const price = parseFloat(product.price || '0');
+                              setFieldValue(`products.${index}.quantity`, quantity);
+                              setFieldValue(`products.${index}.total`, quantity * price);
+                            }}
                             className="w-full px-2 py-1 border rounded-md"
                           />
                         </td>
+
+                        {/* Price Input (Read-only) */}
+                        <td className="border p-2">
+                          <input
+                            name={`products.${index}.price`}
+                            type="number"
+                            value={product.price}
+                            readOnly
+                            className="w-full px-2 py-1 border rounded-md bg-gray-100"
+                          />
+                        </td>
+
+                        {/* Total Input (Read-only) */}
+                        <td className="border p-2">
+                          <input
+                            name={`products.${index}.total`}
+                            type="number"
+                            value={product.total}
+                            readOnly
+                            className="w-full px-2 py-1 border rounded-md bg-gray-100"
+                          />
+                        </td>
+
+                        {/* Remove Button */}
                         <td className="border p-2 text-center">
                           <button
                             type="button"
@@ -111,58 +211,108 @@ console.log(values)
                       </tr>
                     ))}
                   </tbody>
+
+
                 </table>
 
-                <button
-                  type="button"
-                  onClick={() => push({ productId: '', quantity: 1 })}
-                  className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md"
-                >
-                  Add Product
-                </button>
+                <div className="flex justify-between mt-4">
+                  <button
+                    type="button"
+                    onClick={() => push({ name: '', quantity: '', price: '', total: '' })}
+                    className="px-4 py-2 bg-blue-500 text-white rounded-md"
+                  >
+                    Add Product
+                  </button>
+                </div>
               </div>
             )}
           </FieldArray>
 
-          {/* Payment and Summary */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mt-4">
+          {/* Payment Details */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <label className="block text-lg font-semibold">Online Payment</label>
+              <label className="block text-lg font-semibold">Online Payment Received</label>
               <input
                 name="onlineAmount"
                 type="number"
                 value={values.onlineAmount}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-md"
+                placeholder="Online Payment"
               />
             </div>
-
             <div>
-              <label className="block text-lg font-semibold">Cash Payment</label>
+              <label className="block text-lg font-semibold">Cash Payment Received</label>
               <input
                 name="cashAmount"
                 type="number"
                 value={values.cashAmount}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-md"
+                placeholder="Cash Payment"
               />
             </div>
-
             <div>
-              <label className="block text-lg font-semibold">Discount</label>
+              <label className="block text-lg font-semibold">Discount (in ₹)</label>
               <input
                 name="discount"
                 type="number"
                 value={values.discount}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-md"
+                placeholder="Discount"
               />
             </div>
           </div>
 
-          <button type="submit" className="mt-6 px-6 py-2 bg-blue-500 text-white rounded-md">
-            Submit
-          </button>
+          {/* Summary */}
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
+            <div>
+              <label className="block text-lg font-semibold">Total Amount (Before Discount)</label>
+              <input
+                name="totalAmount"
+                value={values.products.reduce((sum, product) => sum + product.total, 0)}
+                readOnly
+                className="w-full px-3 py-2 border rounded-md bg-gray-100"
+              />
+            </div>
+
+            <div>
+              <label className="block text-lg font-semibold">Discounted Total</label>
+              <input
+                name="discountedTotal"
+                value={
+                  values.products.reduce((sum, product) => sum + product.total, 0) - values.discount
+                }
+                readOnly
+                className="w-full px-3 py-2 border rounded-md bg-gray-100"
+              />
+            </div>
+
+            <div>
+              <label className="block text-lg font-semibold">Due Amount</label>
+              <input
+                name="dueAmount"
+                value={Math.max(
+                  (values.products?.reduce(
+                    (sum, product) => sum + (product.total || 0), 0
+                  ) || 0) -
+                  (values.discount || 0) -
+                  (parseFloat(values.onlineAmount || '0') + parseFloat(values.cashAmount || '0')),
+                  0
+                )}
+                readOnly
+                className="w-full px-3 py-2 border rounded-md bg-gray-100"
+              />
+            </div>
+
+          </div>
+
+          <div className="text-center mt-6">
+            <button type="submit" className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-md">
+              Submit
+            </button>
+          </div>
         </form>
       </div>
     </div>

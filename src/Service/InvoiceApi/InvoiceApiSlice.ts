@@ -22,7 +22,7 @@ const InviceApiSlice = shopApiSlice.injectEndpoints({
 
         }),
         getCustomerInvoice: builder.query({
-            query: ({  billId }:any) => ({
+            query: ({billId}:any) => ({
                 url: `/bill/getSingleBill/${billId}`,
                 method: "GET",
             }),

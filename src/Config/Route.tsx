@@ -48,11 +48,12 @@ const pageRoute = createBrowserRouter([
                         path: 'edit-customer/:id',
                         element: <CustomerEditWrapper />
                     },
-                    {
-                        path: 'transactions/:id',
-                        element: <CustomerTracsactionWrapper />
-                    },
+
                 ])
+            },
+            {
+                path: 'transactions/:id',
+                element: <CustomerTracsactionWrapper />
             },
             {
                 path: 'vender',
@@ -82,17 +83,14 @@ const pageRoute = createBrowserRouter([
             },
             {
                 path: 'invoice', element: <InvoiceListWrapper />,
-                children: [
 
-                    {
-                        path: 'edit-invoice/:id', element: <EditInvoiceWrapper />
-                    },
-                    {
-                        path: 'show-invoice/:billId', element: <ShowInviceWrapper />
-                    },
-                ]
             },
-
+            {
+                path: 'invoice/edit-invoice/:id', element: <EditInvoiceWrapper />
+            },
+            {
+                path: 'invoice/show-invoice/:billId', element: <ShowInviceWrapper />
+            },
             {
                 path: 'invoice/add-invoice', element: <AddInvoiceWrapper />
             },

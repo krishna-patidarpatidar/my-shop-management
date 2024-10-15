@@ -13,6 +13,7 @@ const DashbordWrapper = () => {
   const { data: customerCountData } = useGetCustomerCountsQuery();
   const { data: venderCountData } = useGetVendersCountQuery();
   const {data: billCoutntData}=useGetBillsCountQuery({time:timeBillRange})
+  console.log(transactionData,billCoutntData)
   // Handle time range change
   const handleTimeRangeTransactionChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     setTimeTransactionRange(event.target.value);

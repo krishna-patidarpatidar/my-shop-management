@@ -46,7 +46,7 @@ const ProductList: React.FC<Props> = ({ productData,deleteProduct }) => {
             />
             <div className="md:mb-6  sm:mb-4">
               {isLoading ? (
-                <div>Loading categories...</div>
+                <div>Loading products...</div>
               ) : (
                 <select className='py-3 px-7'
          

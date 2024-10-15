@@ -5,34 +5,30 @@ import shopApiSlice from "../Service";
 const DashbordSlice = shopApiSlice.injectEndpoints({
     endpoints: (builder: any) => ({
         getTransaction: builder.query({
-            query: ({ token, time }: any) => ({
-                url: `/bill/bills/total-received/${time}`,
+            query: ({ time }: any) => ({
+                url: `/bill/totalReceived/${time}`,
                 method: "GET",
-                headers: { "x-access-token": token }
             }),
             providesTags: ['dashbord']
         }),
         getCustomerCounts: builder.query({
-            query: ({ token }: any) => ({
+            query: () => ({
                 url: `/customer/countCustomers`,
                 method: "GET",
-                headers: { "x-access-token": token }
             }),
             providesTags: ['dashbord']
         }),
         getBillsCount: builder.query({
-            query: ({ token, time }: any) => ({
-                url: `/bill/bills/count/${time}`,
+            query: ({ time }: any) => ({
+                url: `/bill/totalBillCount/${time}`,
                 method: "GET",
-                headers: { "x-access-token": token }
             }),
             providesTags: ['dashbord']
         }),
         getVendersCount: builder.query({
-            query: ({ token }: any) => ({
+            query: () => ({
                 url: `/vendors/countVendors`,
                 method: "GET",
-                headers: { "x-access-token": token }
             }),
             providesTags: ['dashbord']
         }),

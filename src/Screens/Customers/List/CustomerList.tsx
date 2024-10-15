@@ -15,7 +15,7 @@ type Props = {
   deleteCustomer: (id: string) => void;
 };
 
-const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }:any) => {
+const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }: any) => {
   const [edit, setEdit] = useState(false);
   const handleEdit = () => {
     setEdit(true);
@@ -28,9 +28,9 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }:any) => 
       {edit && (
         <div className="fixed inset-0 z-10 bg-black bg-opacity-50 flex items-center justify-center">
           <div className="p-6 bg-white rounded-lg mt-40 shadow-lg relative z-20 w-[80%] max-w-md">
-           
+
             {/* Render the add/edit component via the Outlet */}
-            <Outlet context={{setEdit}} />
+            <Outlet context={{ setEdit }} />
           </div>
         </div>
       )}
@@ -50,7 +50,7 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }:any) => 
 
         {/* Mobile Responsive Table */}
         <div className="overflow-hidden shadow-lg rounded-lg bg-white">
-           <table className="min-w-full table-auto text-left hidden md:table">
+          <table className="min-w-full table-auto text-left hidden md:table">
             <thead className="bg-blue-600 text-white uppercase">
               <tr>
                 <th className="py-3 px-6">Customer Name</th>
@@ -61,7 +61,7 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }:any) => 
             </thead>
             <tbody className="text-gray-700">
               {customerData?.length > 0 ? (
-                customerData.map((customer:any) => (
+                customerData.map((customer: any) => (
                   <tr key={customer._id} className="border-b hover:bg-gray-50">
                     <td className="py-3 px-6">{customer.name}</td>
                     <td className="py-3 px-6">{customer.mobile}</td>
@@ -82,11 +82,13 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }:any) => 
                           onClick={() => deleteCustomer(customer._id)}
                           className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200"
                         />
-                        <AtmButtonField
-                          label="ShowTransaction"
-                          onClick={() => deleteCustomer(customer._id)}
-                          className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200"
-                        />
+                        <Link to={`/admin/transactions/${customer._id}`}>
+                          <AtmButtonField
+                            label="ShowTransaction"
+                            onClick={handleEdit}
+                            className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-900 transition duration-200"
+                          />
+                        </Link>
                       </div>
                     </td>
                   </tr>
@@ -104,7 +106,7 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }:any) => 
           {/* Mobile View */}
           <div className="md:hidden">
             {customerData?.length > 0 ? (
-              customerData.map((customer:any) => (
+              customerData.map((customer: any) => (
                 <div key={customer._id} className="border-b p-4 flex flex-col gap-2 mb-4 bg-gray-50">
                   <div>
                     <span className="font-bold text-sm text-gray-700">Customer Name:</span>
@@ -128,11 +130,20 @@ const CustomerList: React.FC<Props> = ({ customerData, deleteCustomer }:any) => 
                         className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400 transition duration-200 w-full"
                       />
                     </Link>
-                    <AtmButtonField
-                      label="Delete"
-                      onClick={() => deleteCustomer(customer._id)}
-                      className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200 w-full"
-                    />
+                    <Link to={`transaction/${customer._id}`}>
+                      <AtmButtonField
+                        label="Delete"
+                        onClick={handleEdit}
+                        className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-900 transition duration-200 w-full"
+                      />
+                    </Link>
+                    <Link to={`/admin/transactions/${customer._id}`}>
+                      <AtmButtonField
+                        label="ShowTransaction"
+                        onClick={handleEdit}
+                        className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-900 transition duration-200"
+                      />
+                    </Link>
                   </div>
                 </div>
               ))

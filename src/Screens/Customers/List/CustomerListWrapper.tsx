@@ -9,7 +9,6 @@ const CustomerListWrapper: React.FC = () => {
   const { data :customerdata, isError, isLoading }: any = useGetCustomerQuery('');
   const [deleteCustomerById] = useCustomerDeleteMutation();
     
-console.log(customerdata,"customerData")
 
   // Handle customer deletion
   const handleDelete = async (customerId: string) => {
@@ -32,13 +31,14 @@ console.log(customerdata,"customerData")
       }
     });
   };
+ 
 
   // if (isLoading) return <div>Loading...</div>;
   if (isError) return <div className='mt-60 ml-60'>Error fetching customers</div>;
   return (
     <div>
       {isLoading ? <TableSkeleton /> : <CustomerList customerData={customerdata?.data || []}
-        deleteCustomer={handleDelete} isLoading={isLoading} />}
+        deleteCustomer={handleDelete} isLoading={isLoading}  />}
     </div>
   );
 };
