@@ -1,5 +1,6 @@
 import { FieldArray } from 'formik';
-import { BsColumnsGap } from 'react-icons/bs';
+import AtmTextField from '../../../Components/atoms/Input/AtmTypeText/AtmTextField';
+import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
 
 interface FormProps {
   formikProps: any; // Replace any with proper types as needed
@@ -49,7 +50,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
                 value={values.customerId}
                 onChange={(e) => {
                   const selectedCustomer = customerData.find(
-                    (customer) => customer._id === e.target.value
+                    (customer: any) => customer._id === e.target.value
                   );
                   setFieldValue('customerId', selectedCustomer._id);
                   setFieldValue('customerName', selectedCustomer.name);
@@ -60,7 +61,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
                 className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
               >
                 <option value="">Select a customer</option>
-                {customerData?.map((customer) => (
+                {customerData?.map((customer: any) => (
                   <option key={customer._id} value={customer._id}>
                     {customer.name}
                   </option>
@@ -70,9 +71,8 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
 
             <div>
               <label className="block text-lg font-semibold">Customer Address</label>
-              <input
+              <AtmTextField
                 name="customerAddress"
-                type="text"
                 value={values.customerAddress}
                 readOnly
                 className="w-full px-3 py-2 border rounded-md bg-gray-100"
@@ -80,9 +80,8 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
             </div>
             <div>
               <label className="block text-lg font-semibold">Customer Mobile</label>
-              <input
+              <AtmTextField
                 name="customerMobile"
-                type="text"
                 value={values.customerMobile}
                 readOnly
                 className="w-full px-3 py-2 border rounded-md bg-gray-100"
@@ -105,7 +104,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {values?.products?.map((product, index) => (
+                    {values?.products?.map((product:string, index:string) => (
                       <tr key={index}>
                         {/* Product Selector */}
                         <td className="border p-2">
@@ -152,7 +151,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
                             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
                           >
                             <option value="">Select a product</option>
-                            {productData?.map((p) => (
+                            {productData?.map((p:any) => (
                               <option key={p._id} value={p._id}>
                                 {p.name}
                               </option>
@@ -162,7 +161,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
 
                         {/* Quantity Input */}
                         <td className="border p-2">
-                          <input
+                          <AtmTextField
                             name={`products.${index}.quantity`}
                             type="number"
                             value={product.quantity}
@@ -178,7 +177,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
 
                         {/* Price Input (Read-only) */}
                         <td className="border p-2">
-                          <input
+                          <AtmTextField
                             name={`products.${index}.price`}
                             type="number"
                             value={product.price}
@@ -189,7 +188,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
 
                         {/* Total Input (Read-only) */}
                         <td className="border p-2">
-                          <input
+                          <AtmTextField
                             name={`products.${index}.total`}
                             type="number"
                             value={product.total}
@@ -200,13 +199,12 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
 
                         {/* Remove Button */}
                         <td className="border p-2 text-center">
-                          <button
-                            type="button"
+                          <AtmButtonField
                             onClick={() => remove(index)}
                             className="text-red-600"
-                          >
-                            Remove
-                          </button>
+                            label='remove'
+
+                          />
                         </td>
                       </tr>
                     ))}
@@ -216,13 +214,13 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
                 </table>
 
                 <div className="flex justify-between mt-4">
-                  <button
+                  <AtmButtonField
                     type="button"
                     onClick={() => push({ name: '', quantity: '', price: '', total: '' })}
                     className="px-4 py-2 bg-blue-500 text-white rounded-md"
-                  >
-                    Add Product
-                  </button>
+
+                    label='Add Product'
+                  />
                 </div>
               </div>
             )}
@@ -231,8 +229,8 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
           {/* Payment Details */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <label className="block text-lg font-semibold">Online Payment Received</label>
-              <input
+              <AtmTextField
+                label='Online Payment Received'
                 name="onlineAmount"
                 type="number"
                 value={values.onlineAmount}
@@ -242,8 +240,8 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
               />
             </div>
             <div>
-              <label className="block text-lg font-semibold">Cash Payment Received</label>
-              <input
+              <AtmTextField
+                label='Cash Payment Received'
                 name="cashAmount"
                 type="number"
                 value={values.cashAmount}
@@ -253,8 +251,8 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
               />
             </div>
             <div>
-              <label className="block text-lg font-semibold">Discount (in ₹)</label>
-              <input
+              <AtmTextField
+                label='Discount (in ₹)'
                 name="discount"
                 type="number"
                 value={values.discount}
@@ -269,7 +267,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
               <label className="block text-lg font-semibold">Total Amount (Before Discount)</label>
-              <input
+              <AtmTextField
                 name="totalAmount"
                 value={values.products.reduce((sum, product) => sum + product.total, 0)}
                 readOnly
@@ -279,11 +277,10 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
 
             <div>
               <label className="block text-lg font-semibold">Discounted Total</label>
-              <input
+              <AtmTextField
+
                 name="discountedTotal"
-                value={
-                  values.products.reduce((sum, product) => sum + product.total, 0) - values.discount
-                }
+                value={values.products.reduce((sum, product) => sum + product.total, 0) - values.discount}
                 readOnly
                 className="w-full px-3 py-2 border rounded-md bg-gray-100"
               />
@@ -291,7 +288,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
 
             <div>
               <label className="block text-lg font-semibold">Due Amount</label>
-              <input
+              <AtmTextField
                 name="dueAmount"
                 value={Math.max(
                   (values.products?.reduce(
@@ -309,9 +306,11 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
           </div>
 
           <div className="text-center mt-6">
-            <button type="submit" className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-md">
-              Submit
-            </button>
+            <AtmButtonField
+              type="submit"
+              className="px-6 py-2 bg-blue-500 text-white font-semibold rounded-md"
+              label='Submit'
+            />
           </div>
         </form>
       </div>

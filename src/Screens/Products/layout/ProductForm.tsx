@@ -100,7 +100,7 @@ const ProductForm: React.FC<Props> = ({ formikProps }) => {
               className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
             >
               <option value="">Select a category</option>
-              {data?.data.map((category) => (
+              {data?.data.map((category:any) => (
                 <option key={category._id} value={category._id}>
                   {category.categoryName}
                 </option>

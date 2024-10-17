@@ -1,5 +1,6 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { formatDate } from '../../../Components/Molecule/DateHelper/DateHelper'
+import AtmTextField from '../../../Components/atoms/Input/AtmTypeText/AtmTextField'
 
 const InvoiceList = ({ data, handleDelete }: any) => {
     console.log(data)
@@ -16,7 +17,7 @@ const InvoiceList = ({ data, handleDelete }: any) => {
                         <h2 className="font-bold">Invoices</h2>
 
                         <button className="px-4 py-2 flex gap-2 text-white  rounded-lg">
-                            <input className='border p-2 text-stone-900' type="text" placeholder='search hear' />
+                            <AtmTextField name='search' className='border p-2 text-stone-900' placeholder='search hear' />
                             <Link className='bg-green-500  p-2 font-bold' to={'add-invoice'}>Create Invoice</Link>
                         </button>
                     </div>
@@ -44,10 +45,10 @@ const InvoiceList = ({ data, handleDelete }: any) => {
                                         <td className="p-2">{invoice.status}</td>
                                         <td className="p-2 flex gap-1">
                                             <button className='px-2 py-1 text-white bg-green-600 rounded'>
-                                                <Link to={`payment-in/${invoice._id}`}>Pay In</Link>
+                                                <Link to={`pamantIn/${invoice._id}`}>Pay In</Link>
                                             </button>
                                             <button className="px-2 py-1 text-white bg-blue-500 rounded">
-                                                <Link to={`show-invoice/${invoice.invoiceNumber}`}>View</Link>
+                                                <Link to={`show-invoice/${invoice._id}`}>View</Link>
                                             </button>
                                             <button className='px-2 py-1 text-white bg-gray-700 rounded'>
                                                 <Link to={`edit-invoice/${invoice.invoiceNumber}`}>Edit</Link>

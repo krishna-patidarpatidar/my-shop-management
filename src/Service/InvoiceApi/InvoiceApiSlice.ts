@@ -31,7 +31,7 @@ const InviceApiSlice = shopApiSlice.injectEndpoints({
         }),
         deleteInvoice: builder.mutation({
             query: ({ INVNo }:any) => ({
-                url: `/bill/deleteBills/${INVNo}`,
+                url: `/bill/deleteBill/${INVNo}`,
                 method: "DELETE",
             }),
             invalidatesTags: ['invoice']

@@ -25,7 +25,6 @@ const CustomerTransactionForm = ({ customerTransaction }: any) => {
               <th className="py-3 px-6">Customer Name</th>
               <th className="py-3 px-6">Amount</th>
               <th className="py-3 px-6">Receved Amount</th>
-              {/* <th className="py-3 px-6">Receved Case</th> */}
               <th className="py-3 px-6">Due Amount</th>
               <th className="py-3 px-6">Actions</th>
             </tr>
@@ -49,21 +48,7 @@ const CustomerTransactionForm = ({ customerTransaction }: any) => {
                         className="bg-yellow-500 text-white px-3 py-1 rounded hover:bg-yellow-400 transition duration-200"
                       />
                     </Link>
-                    {/* <div className="flex gap-2">
-                      
-                      <AtmButtonField
-                        label="Delete"
-                        onClick={() => deleteCustomer(customer._id)}
-                        className="bg-red-600 text-white px-3 py-1 rounded hover:bg-red-500 transition duration-200"
-                      />
-                      <Link to={`transactions/${customer._id}`}>
-                        <AtmButtonField
-                          label="ShowTransaction"
-                          onClick={handleEdit}
-                          className="bg-blue-600 text-white px-3 py-1 rounded hover:bg-blue-900 transition duration-200"
-                        />
-                      </Link>
-                    </div> */}
+                   
                   </td>
                 </tr>
               ))

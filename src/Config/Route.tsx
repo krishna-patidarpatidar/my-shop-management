@@ -11,7 +11,7 @@ import WithoutLogin from "../Components/Molecule/Auth/WithoutLogin";
 import Auth from "../Components/Molecule/Auth/Auth";
 import InvoiceListWrapper from "../Screens/Invoice/List/InvoiceListWrapper";
 import AddInvoiceWrapper from "../Screens/Invoice/Add/AddInvoiceWrapper";
-import ShowInviceWrapper from "../Screens/Invoice/Invoice/ShowInviceWrapper";
+import ShowInviceWrapper from "../Screens/Invoice/Invoice/ShowInvoiceWrapper";
 import EditInvoiceWrapper from "../Screens/Invoice/Edit/EditInvoiceWrapper";
 import CategoryListFormWrapper from "../Screens/Category/List/CategoryListFormWrapper";
 import EditCategoryWrapper from "../Screens/Category/Edit/EditCategoryWrapper";
@@ -24,6 +24,7 @@ import VenderListWrapper from "../Screens/Vender/List/VenderListWrapper";
 import VenderAddWrapper from "../Screens/Vender/Add/VenderAddWrapper";
 import VenderEditWrapper from "../Screens/Vender/Edit/VenderEditWrapper";
 import CustomerTracsactionWrapper from "../Screens/Customers/Transactions/customerTracsactionWrapper";
+import PamantInWrapper from "../Screens/Invoice/Pamant/PamantInWrapper";
 
 const pageRoute = createBrowserRouter([
     {
@@ -93,6 +94,9 @@ const pageRoute = createBrowserRouter([
             },
             {
                 path: 'invoice/add-invoice', element: <AddInvoiceWrapper />
+            },
+            {
+                path: 'invoice/pamantIn/:id', element: <PamantInWrapper />
             },
 
             {
