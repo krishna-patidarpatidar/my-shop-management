@@ -1,43 +1,64 @@
 import React from 'react';
+import ATMFieldLabel from '../../Field/ATMFieldLabel';
+import { ErrorMessage } from 'formik';
 
-interface InputProps {
-  value?: any;
-  placeholder?: string;
-  onChange?: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  onBlur?: (e: React.FocusEvent<HTMLInputElement>) => void;
+// Interface for ATMTextField
+interface TextFieldProps
+  extends Omit<React.InputHTMLAttributes<HTMLInputElement>, 'value' | 'onChange'> {
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
   label?: string;
-  name: string; 
-  readOnly?:boolean;
-  className:string
-  type?:string
+  inputSize?: 'sm' | 'md' | 'lg';
+  errorPosition?: 'right-0'|'left-0'
 }
 
-const AtmTextField: React.FC<InputProps> = ({
-  value,
-  placeholder,
-  onChange,
-  onBlur,
-  readOnly,
-  label,
-  type='text',
-  name,
-  className,
-}) => {
-  return (
-    <div className='flex flex-col gap-2'>
-      <label className='text-2xl font-semibold text-slate-700' htmlFor={name}>{label}</label>
-      <input
-        type={type}
-        value={value}
-        placeholder={placeholder}
-        onChange={onChange}
-        onBlur={onBlur}
-        name={name} 
-        readOnly={readOnly}
-        className={`border px-4 py-2  text-gray-900 text-xl ${className}`}
-      />
-    </div>
-  );
+const sizeClasses = {
+  sm: {
+    input: 'text-sm px-2 py-1',
+    label: 'text-sm',
+    error: 'text-xs',
+  },
+  md: {
+    input: 'text-base px-3 py-2',
+    label: 'text-base',
+    error: 'text-sm',
+  },
+  lg: {
+    input: 'text-lg px-4 py-3',
+    label: 'text-lg',
+    error: 'text-base',
+  },
 };
 
-export default AtmTextField;
+const ATMTextField: React.FC<TextFieldProps> = ({
+  value,
+  onChange,
+  label,
+  errorPosition='right-0',
+  inputSize = 'md',
+  ...inputProps
+}) => (
+  <div className="flex flex-col gap-2 relative">
+    {label && (
+        <div className={sizeClasses[inputSize].label}>
+          <ATMFieldLabel label={label} />
+        </div>
+      )}
+    <input
+      value={value}
+      onChange={onChange}
+      className={`flex-1 text-slate-700 ${sizeClasses[inputSize].input} border-2 rounded-md focus:outline-none`}
+
+      {...inputProps}
+    />
+     {inputProps.name && (
+       <p
+         className={`text-red-500 absolute ${sizeClasses[inputSize].error} ${errorPosition} bottom-[-20px]`}
+        >
+        { inputProps.name && ( <ErrorMessage name={inputProps.name} />)}
+       </p>
+      )}
+  </div>
+);
+
+export default ATMTextField;

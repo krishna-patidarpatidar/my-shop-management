@@ -10,7 +10,7 @@ interface LoginProps {
 }
 
 const Login: React.FC<LoginProps> = ({ formikProps, isSubmitting }) => {
-  const { values, handleChange, handleBlur, errors, touched } = formikProps;
+  const { values, handleChange, handleBlur } = formikProps;
 
   return (
     <div className="flex justify-center items-center min-h-screen bg-gray-100">
@@ -18,9 +18,8 @@ const Login: React.FC<LoginProps> = ({ formikProps, isSubmitting }) => {
         <h1 className="text-4xl font-semibold text-center text-gray-700 mb-6">Login</h1>
 
         {/* Email Field */}
-        <div className="relative mb-6">
-          <AtmTextField
-            className={`border p-2 rounded-lg w-full ${touched.email && errors.email ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
+        <div>
+            <AtmTextField
             label="Email"
             name="email"
             placeholder="someone@example.com"
@@ -28,15 +27,12 @@ const Login: React.FC<LoginProps> = ({ formikProps, isSubmitting }) => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          {touched.email && errors.email && (
-            <span className="absolute text-red-600 text-xl mt-1 right-0">{errors.email}</span>
-          )}
+        
         </div>
 
         {/* Password Field */}
-        <div className="relative mb-6">
+        <div>
           <AtmPasswordField
-            className={`border p-2 rounded-lg w-full ${touched.password && errors.password ? 'border-red-500' : 'border-gray-300'} focus:outline-none focus:ring-2 focus:ring-blue-500`}
             label="Password"
             name="password"
             placeholder="Enter your password"
@@ -44,9 +40,7 @@ const Login: React.FC<LoginProps> = ({ formikProps, isSubmitting }) => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-          {touched.password && errors.password && (
-            <span className="absolute text-red-600 text-xl mt-1 right-0">{errors.password}</span>
-          )}
+         
         </div>
 
         {/* Submit Button */}

@@ -3,6 +3,7 @@ import AtmTextField from '../../../Components/atoms/Input/AtmTypeText/AtmTextFie
 import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
 import { useOutletContext } from 'react-router-dom';
 import { useGetCategoryQuery } from '../../../Service/Category/CategoryApiSlice';
+import SearchableSelectField from '../../../Components/atoms/Select/ATMSelectField';
 
 type FormikProps = {
   values: {
@@ -50,11 +51,8 @@ const ProductForm: React.FC<Props> = ({ formikProps }) => {
             placeholder="Product Name"
             onChange={handleChange}
             onBlur={handleBlur}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
-          {touched.name && errors.name && (
-            <div className="text-red-600 absolute text-sm">{errors.name}</div>
-          )}
+         
         </div>
 
         {/* Selling Price */}
@@ -66,11 +64,8 @@ const ProductForm: React.FC<Props> = ({ formikProps }) => {
             placeholder="Product Selling Price"
             onChange={handleChange}
             onBlur={handleBlur}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
-          {touched.sellingPrice && errors.sellingPrice && (
-            <div className="text-red-600 absolute text-sm">{errors.sellingPrice}</div>
-          )}
+         
         </div>
 
         {/* Product Code */}
@@ -82,30 +77,30 @@ const ProductForm: React.FC<Props> = ({ formikProps }) => {
             placeholder="Product Code"
             onChange={handleChange}
             onBlur={handleBlur}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
-          {touched.productCode && errors.productCode && (
-            <div className="text-red-600 absolute text-sm">{errors.productCode}</div>
-          )}
+         
         </div>
         <div className="md:mb-6 sm:mb-4">
           {isLoading ? (
             <div>Loading categories...</div>
           ) : (
-            <select
-              name="categoryId"
-              value={values.categoryId}
-              onChange={handleChange}
-              onBlur={handleBlur}
-              className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
-            >
-              <option value="">Select a category</option>
-              {data?.data.map((category:any) => (
-                <option key={category._id} value={category._id}>
-                  {category.categoryName}
-                </option>
-              ))}
-            </select>
+            // <select
+            //   name="categoryId"
+            //   value={values.categoryId}
+            //   onChange={handleChange}
+            //   onBlur={handleBlur}
+            //   className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
+            // >
+            //   <option value="">Select a category</option>
+            //   {data?.data.map((category:any) => (
+            //     <option key={category._id} value={category._id}>
+            //       {category.categoryName}
+            //     </option>
+            //   ))}
+            // </select>
+            <SearchableSelectField
+            
+            />
           )}
           {touched.categoryId && errors.categoryId && (
             <div className="text-red-600 absolute text-sm">{errors.categoryId}</div>

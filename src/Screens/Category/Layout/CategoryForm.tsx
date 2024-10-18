@@ -20,7 +20,7 @@ type Props = {
 const CategoryForm: React.FC<Props> = ({ formikProps }) => {
   const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
 
-  const { values, handleChange, handleBlur, isSubmitting,touched,errors }:any = formikProps;
+  const { values, handleChange, handleBlur, isSubmitting }:any = formikProps;
 
   return (
     <div className=" flex items-center justify-center">
@@ -28,7 +28,8 @@ const CategoryForm: React.FC<Props> = ({ formikProps }) => {
       <span className='right-6 top-3 absolute text-2xl text-red-700 cursor-pointer p-3' onClick={()=>setEdit((false))}>X</span>
         <h1 className="text-4xl font-semibold text-gray-800 mb-6 text-center"> CategoryForm </h1>
         
-        {/* Name Field */} 
+        <div className='flex flex-col gap-3'>
+          {/* Name Field */} 
         <div className="mb-4">
           <AtmTextField
            label='Category Name'
@@ -37,15 +38,9 @@ const CategoryForm: React.FC<Props> = ({ formikProps }) => {
             placeholder="Category Name"
             onChange={handleChange}
             onBlur={handleBlur}
-            className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
-          {touched.categoryName && errors.categoryName && (
-            <div className="text-red-600 absolute text-sm">{errors.categoryName}</div>
-          )}
+         
         </div>
-        
-       
-
         {/* Submit Button */}
         <div className="text-center">
           <AtmButtonField
@@ -56,6 +51,7 @@ const CategoryForm: React.FC<Props> = ({ formikProps }) => {
             }`}
             type="submit"
           />
+        </div>
         </div>
       </div>
     </div>

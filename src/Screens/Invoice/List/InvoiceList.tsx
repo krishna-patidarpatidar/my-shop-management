@@ -1,6 +1,5 @@
 import { Link, Outlet, useLocation } from 'react-router-dom'
 import { formatDate } from '../../../Components/Molecule/DateHelper/DateHelper'
-import AtmTextField from '../../../Components/atoms/Input/AtmTypeText/AtmTextField'
 
 const InvoiceList = ({ data, handleDelete }: any) => {
     console.log(data)
@@ -17,7 +16,7 @@ const InvoiceList = ({ data, handleDelete }: any) => {
                         <h2 className="font-bold">Invoices</h2>
 
                         <button className="px-4 py-2 flex gap-2 text-white  rounded-lg">
-                            <AtmTextField name='search' className='border p-2 text-stone-900' placeholder='search hear' />
+                            
                             <Link className='bg-green-500  p-2 font-bold' to={'add-invoice'}>Create Invoice</Link>
                         </button>
                     </div>

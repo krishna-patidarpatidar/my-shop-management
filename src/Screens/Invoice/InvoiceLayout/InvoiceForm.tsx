@@ -1,6 +1,9 @@
 import { FieldArray } from 'formik';
-import AtmTextField from '../../../Components/atoms/Input/AtmTypeText/AtmTextField';
 import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
+import { useState } from 'react';
+import SearchableSelectField from '../../../Components/atoms/Select/ATMSelectField';
+import ATMDateField from '../../../Components/atoms/Input/AtmDate/AtmTypeDate';
+import ATMNumberField from '../../../Components/atoms/Input/AtmNumber/ATMNumberField';
 
 interface FormProps {
   formikProps: any; // Replace any with proper types as needed
@@ -9,83 +12,96 @@ interface FormProps {
 }
 
 const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
-  const { values, handleSubmit, setFieldValue, handleBlur, handleChange } = formikProps;
+  const { values, handleSubmit, setFieldValue, handleChange } = formikProps;
 
+  const [selectedCustomer, setSelectedCustomer] = useState(null);
+
+  const handleCustomerChange = (selectedOption: any) => {
+    setSelectedCustomer(selectedOption);
+    setFieldValue('customerId', selectedOption?._id);
+    setFieldValue('customerName', selectedOption?.name);
+    setFieldValue('customerAddress', selectedOption?.address);
+    setFieldValue('customerMobile', selectedOption?.mobile);
+  };
+
+  const handleProductChange = (index: number, selectedProduct: any) => {
+    setFieldValue(`products.${index}.productId`, selectedProduct._id);
+    setFieldValue(`products.${index}.price`, selectedProduct.sellingPrice);
+    setFieldValue(`products.${index}.quantity`, 1); // Default quantity 1
+    setFieldValue(`products.${index}.total`, selectedProduct.sellingPrice);
+  };
   return (
-    <div className="min-h-screen mt-40 bg-gray-50 text-gray-800 p-4">
-      <div className="max-w-4xl mx-auto bg-white rounded-lg">
+    <div className="min-h-screen mt-40 bg-gray-50 text-gray-800 ">
+      <div className="max-w-4xl mx-auto bg-white rounded-lg p-5">
         <h1 className="text-2xl font-bold text-center mb-4">Invoice</h1>
 
         <form onSubmit={handleSubmit}>
-          {/* Invoice Date */}
-          <div className="mb-4">
-            <label className="block text-lg font-semibold">Invoice Date</label>
+          <div className='grid grid-cols-1 md:grid-cols-2 gap-4 mb-4'>
+            {/* Invoice Date */}
+            <div className="mb-4">
+              {/* <label className="block text-lg font-semibold">Invoice Date</label>
             <input
               name="invoiceDate"
               type="date"
               value={values.invoiceDate}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-md"
-            />
-          </div>
+            /> */}
+              <ATMDateField
+                onChange={handleChange}
+                value={values.invoiceDate}
+                name="invoiceDate"
+                label="Invoice Date"
 
-          {/* Due Date */}
-          <div className="mb-4">
-            <label className="block text-lg font-semibold">Due Date</label>
-            <input
+              />
+            </div>
+
+            {/* Due Date */}
+            <div className="mb-4">
+              {/* <label className="block text-lg font-semibold">Due Date</label> */}
+              {/* <input
               name="dueDate"
               type="date"
               value={values.dueDate}
               onChange={handleChange}
               className="w-full px-3 py-2 border rounded-md"
-            />
+            /> */}
+              <ATMDateField
+                onChange={handleChange}
+                value={values.dueDate}
+                name="dueDate"
+                label="Due Date"
+
+              />
+            </div>
           </div>
 
           {/* Customer Details */}
           <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
             <div>
-              <label className="block text-lg font-semibold">Customer Name</label>
-              <select
-                name="customerId"
-                value={values.customerId}
-                onChange={(e) => {
-                  const selectedCustomer = customerData.find(
-                    (customer: any) => customer._id === e.target.value
-                  );
-                  setFieldValue('customerId', selectedCustomer._id);
-                  setFieldValue('customerName', selectedCustomer.name);
-                  setFieldValue('customerAddress', selectedCustomer.address);
-                  setFieldValue('customerMobile', selectedCustomer.mobile);
-                }}
-                onBlur={handleBlur}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
-              >
-                <option value="">Select a customer</option>
-                {customerData?.map((customer: any) => (
-                  <option key={customer._id} value={customer._id}>
-                    {customer.name}
-                  </option>
-                ))}
-              </select>
+              {/* <label className="block text-lg font-semibold">Customer Name</label> */}
+
+              <SearchableSelectField
+                label='Customer Name'
+                options={customerData}
+                getOptionLabel={(option: any) => option.name}
+                getOptionValue={(option: any) => option._id}
+                onChange={handleCustomerChange}
+                value={selectedCustomer}
+              />
             </div>
 
-            <div>
+            {/* <div>
               <label className="block text-lg font-semibold">Customer Address</label>
-              <AtmTextField
-                name="customerAddress"
-                value={values.customerAddress}
-                readOnly
-                className="w-full px-3 py-2 border rounded-md bg-gray-100"
-              />
-            </div>
-            <div>
-              <label className="block text-lg font-semibold">Customer Mobile</label>
-              <AtmTextField
-                name="customerMobile"
-                value={values.customerMobile}
-                readOnly
-                className="w-full px-3 py-2 border rounded-md bg-gray-100"
-              />
+              <h1 className='border-2 h-10 rounded-md'>
+                {values.customerAddress}
+              </h1>
+            </div> */}
+            <div className='flex flex-col gap-3'>
+              <label className="block text-lg text-slate-700 font-semibold">Customer Mobile</label>
+              <h1 className='border-2 h-10 rounded-md'>
+                {values.customerMobile}
+              </h1>
             </div>
           </div>
 
@@ -104,35 +120,11 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
                     </tr>
                   </thead>
                   <tbody>
-                    {values?.products?.map((product:string, index:string) => (
+                    {values?.products?.map((product: any, index: number) => (
                       <tr key={index}>
                         {/* Product Selector */}
                         <td className="border p-2">
-                          {/*
-                          <select
-                name="customerId"
-                value={values.customerId}
-                onChange={(e) => {
-                  const selectedCustomer = customerData.find(
-                    (customer) => customer._id === e.target.value
-                  );
-                  setFieldValue('customerId', selectedCustomer._id);
-                  setFieldValue('customerName', selectedCustomer.name);
-                  setFieldValue('customerAddress', selectedCustomer.address);
-                  setFieldValue('customerMobile', selectedCustomer.mobile);
-                }}
-                onBlur={handleBlur}
-                className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
-              >
-                <option value="">Select a customer</option>
-                {customerData?.map((customer) => (
-                  <option key={customer._id} value={customer._id}>
-                    {customer.name}
-                  </option>
-                ))}
-              </select>
-                          */}
-                          <select
+                          {/* <select
                             name={`products.${index}.productId`}
                             value={product.productId}
                             onChange={(e) => {
@@ -151,19 +143,28 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
                             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
                           >
                             <option value="">Select a product</option>
-                            {productData?.map((p:any) => (
+                            {productData?.map((p: any) => (
                               <option key={p._id} value={p._id}>
                                 {p.name}
                               </option>
                             ))}
-                          </select>
+                          </select> */}
+                          <SearchableSelectField
+                            options={productData}
+                            getOptionLabel={(option: any) => option.name}
+                            getOptionValue={(option: any) => option._id}
+                            onChange={(selectedProduct) =>
+                              handleProductChange(index, selectedProduct)
+                            }
+                            value={productData.find((p: any) => p._id === product.productId)}
+                          />
                         </td>
 
                         {/* Quantity Input */}
                         <td className="border p-2">
-                          <AtmTextField
+                          <ATMNumberField
                             name={`products.${index}.quantity`}
-                            type="number"
+
                             value={product.quantity}
                             onChange={(e) => {
                               const quantity = parseFloat(e.target.value || '0');
@@ -177,24 +178,16 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
 
                         {/* Price Input (Read-only) */}
                         <td className="border p-2">
-                          <AtmTextField
-                            name={`products.${index}.price`}
-                            type="number"
-                            value={product.price}
-                            readOnly
-                            className="w-full px-2 py-1 border rounded-md bg-gray-100"
-                          />
+                          <h1>
+                            {product.price}
+                          </h1>
                         </td>
 
                         {/* Total Input (Read-only) */}
                         <td className="border p-2">
-                          <AtmTextField
-                            name={`products.${index}.total`}
-                            type="number"
-                            value={product.total}
-                            readOnly
-                            className="w-full px-2 py-1 border rounded-md bg-gray-100"
-                          />
+                          <h1>
+                            {product.total}
+                          </h1>
                         </td>
 
                         {/* Remove Button */}
@@ -229,10 +222,10 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
           {/* Payment Details */}
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
-              <AtmTextField
+              <ATMNumberField
                 label='Online Payment Received'
                 name="onlineAmount"
-                type="number"
+
                 value={values.onlineAmount}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-md"
@@ -240,10 +233,10 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
               />
             </div>
             <div>
-              <AtmTextField
+              <ATMNumberField
                 label='Cash Payment Received'
                 name="cashAmount"
-                type="number"
+
                 value={values.cashAmount}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-md"
@@ -251,10 +244,10 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
               />
             </div>
             <div>
-              <AtmTextField
+              <ATMNumberField
                 label='Discount (in ₹)'
                 name="discount"
-                type="number"
+
                 value={values.discount}
                 onChange={handleChange}
                 className="w-full px-3 py-2 border rounded-md"
@@ -267,40 +260,32 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mb-4">
             <div>
               <label className="block text-lg font-semibold">Total Amount (Before Discount)</label>
-              <AtmTextField
-                name="totalAmount"
-                value={values.products.reduce((sum, product) => sum + product.total, 0)}
-                readOnly
-                className="w-full px-3 py-2 border rounded-md bg-gray-100"
-              />
+              <h1>
+                {values.products.reduce((sum:number, product:any) => sum + product.total, 0)}
+
+              </h1>
             </div>
 
             <div>
               <label className="block text-lg font-semibold">Discounted Total</label>
-              <AtmTextField
+              <h1>
 
-                name="discountedTotal"
-                value={values.products.reduce((sum, product) => sum + product.total, 0) - values.discount}
-                readOnly
-                className="w-full px-3 py-2 border rounded-md bg-gray-100"
-              />
+                {values.products.reduce((sum:number, product:any) => sum + product.total, 0) - values.discount}
+              </h1>
             </div>
 
             <div>
               <label className="block text-lg font-semibold">Due Amount</label>
-              <AtmTextField
-                name="dueAmount"
-                value={Math.max(
+              <h1>
+                {Math.max(
                   (values.products?.reduce(
-                    (sum, product) => sum + (product.total || 0), 0
+                    (sum:number, product:any) => sum + (product.total || 0), 0
                   ) || 0) -
                   (values.discount || 0) -
                   (parseFloat(values.onlineAmount || '0') + parseFloat(values.cashAmount || '0')),
                   0
                 )}
-                readOnly
-                className="w-full px-3 py-2 border rounded-md bg-gray-100"
-              />
+              </h1>
             </div>
 
           </div>

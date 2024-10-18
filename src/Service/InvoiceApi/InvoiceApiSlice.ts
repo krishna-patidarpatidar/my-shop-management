@@ -6,7 +6,7 @@ import shopApiSlice from "../Service";
 const InviceApiSlice = shopApiSlice.injectEndpoints({
     endpoints: (builder: any) => ({
         createInvoice: builder.mutation({
-            query: ({ billData }:any) => ({
+            query: ({ billData }: any) => ({
                 url: `/bill/createBill`,
                 method: "POST",
                 body: billData,
@@ -19,18 +19,16 @@ const InviceApiSlice = shopApiSlice.injectEndpoints({
                 method: "GET",
             }),
             providesTags: ['invoice']
-
         }),
         getCustomerInvoice: builder.query({
-            query: ({billId}:any) => ({
+            query: ({ billId }: any) => ({
                 url: `/bill/getSingleBill/${billId}`,
                 method: "GET",
             }),
             providesTags: ['invoice']
-            
         }),
         deleteInvoice: builder.mutation({
-            query: ({ INVNo }:any) => ({
+            query: ({ INVNo }: any) => ({
                 url: `/bill/deleteBill/${INVNo}`,
                 method: "DELETE",
             }),
