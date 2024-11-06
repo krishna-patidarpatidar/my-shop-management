@@ -21,7 +21,7 @@ type Props = {
 const VenderForm: React.FC<Props> = ({ formikProps }) => {
   const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
 
-  const { values, handleChange, handleBlur, isSubmitting,touched,errors }:any = formikProps;
+  const { values, handleChange, handleBlur, isSubmitting }:any = formikProps;
 
   return (
     <div className=" flex items-center justify-center">
@@ -40,9 +40,7 @@ const VenderForm: React.FC<Props> = ({ formikProps }) => {
             onBlur={handleBlur}
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
-          {touched.name && errors.name && (
-            <div className="text-red-600 absolute text-sm">{errors.name}</div>
-          )}
+         
         </div>
         
         {/* Mobile Number Field */}
@@ -56,9 +54,7 @@ const VenderForm: React.FC<Props> = ({ formikProps }) => {
             onBlur={handleBlur}
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
-          {touched.mobile && errors.mobile && (
-            <div className="text-red-600 absolute text-sm">{errors.mobile}</div>
-          )}
+         
         </div>
         
         {/* Address Field */}
@@ -72,9 +68,7 @@ const VenderForm: React.FC<Props> = ({ formikProps }) => {
             onBlur={handleBlur}
             className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
           />
-          {touched.address && errors.address && (
-            <div className="text-red-600 absolute text-sm">{errors.address}</div>
-          )}
+        
         </div>
 
         {/* Submit Button */}

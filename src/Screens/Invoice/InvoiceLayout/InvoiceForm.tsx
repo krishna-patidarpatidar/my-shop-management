@@ -23,13 +23,23 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
     setFieldValue('customerAddress', selectedOption?.address);
     setFieldValue('customerMobile', selectedOption?.mobile);
   };
-
   const handleProductChange = (index: number, selectedProduct: any) => {
-    setFieldValue(`products.${index}.productId`, selectedProduct._id);
-    setFieldValue(`products.${index}.price`, selectedProduct.sellingPrice);
-    setFieldValue(`products.${index}.quantity`, 1); // Default quantity 1
-    setFieldValue(`products.${index}.total`, selectedProduct.sellingPrice);
+    console.log('Selected Product:', selectedProduct);
+    if (selectedProduct) {
+      setFieldValue(`products.${index}.productId`, selectedProduct._id);
+      setFieldValue(`products.${index}.price`, selectedProduct.sellingPrice);
+      setFieldValue(`products.${index}.quantity`, 1);
+      setFieldValue(`products.${index}.total`, selectedProduct.sellingPrice);
+    }
   };
+
+
+  // const handleProductChange = (index: number, selectedProduct: any) => {
+  //   setFieldValue(`products.${index}.productId`, selectedProduct._id);
+  //   setFieldValue(`products.${index}.price`, selectedProduct.sellingPrice);
+  //   setFieldValue(`products.${index}.quantity`, 1); // Default quantity 1
+  //   setFieldValue(`products.${index}.total`, selectedProduct.sellingPrice);
+  // };
   return (
     <div className="min-h-screen mt-40 bg-gray-50 text-gray-800 ">
       <div className="max-w-4xl mx-auto bg-white rounded-lg p-5">
@@ -108,7 +118,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
           {/* Product Details */}
           <FieldArray name="products">
             {({ remove, push }) => (
-              <div className="mb-4">
+              <div className="mb-4 relative overflow-x-auto">
                 <table className="w-full table-auto border-collapse bg-white">
                   <thead>
                     <tr className="bg-gray-100">
@@ -149,15 +159,18 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
                               </option>
                             ))}
                           </select> */}
-                          <SearchableSelectField
-                            options={productData}
-                            getOptionLabel={(option: any) => option.name}
-                            getOptionValue={(option: any) => option._id}
-                            onChange={(selectedProduct) =>
-                              handleProductChange(index, selectedProduct)
-                            }
-                            value={productData.find((p: any) => p._id === product.productId)}
-                          />
+                          {productData && productData.length > 0 ? (
+                            <SearchableSelectField
+                              options={productData}
+                              getOptionLabel={(option: any) => option.name}
+                              getOptionValue={(option: any) => option._id}
+                              onChange={(selectedProduct) => handleProductChange(index, selectedProduct)}
+                              value={productData.find((p: any) => p._id === product.productId) || null}
+                            />
+                          ) : (
+                            <p>Loading products...</p>
+                          )}
+
                         </td>
 
                         {/* Quantity Input */}
@@ -167,7 +180,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
 
                             value={product.quantity}
                             onChange={(e) => {
-                              const quantity = parseFloat(e.target.value || '0');
+                              const quantity = parseFloat(e.target.value || '1');
                               const price = parseFloat(product.price || '0');
                               setFieldValue(`products.${index}.quantity`, quantity);
                               setFieldValue(`products.${index}.total`, quantity * price);
@@ -209,7 +222,10 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
                 <div className="flex justify-between mt-4">
                   <AtmButtonField
                     type="button"
-                    onClick={() => push({ name: '', quantity: '', price: '', total: '' })}
+                    onClick={() =>
+                      push({ productId: '', quantity: 1, price: 0, total: 0 })
+                    }
+
                     className="px-4 py-2 bg-blue-500 text-white rounded-md"
 
                     label='Add Product'
@@ -261,7 +277,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
             <div>
               <label className="block text-lg font-semibold">Total Amount (Before Discount)</label>
               <h1>
-                {values.products.reduce((sum:number, product:any) => sum + product.total, 0)}
+                {values.products.reduce((sum: number, product: any) => sum + product.total, 0)}
 
               </h1>
             </div>
@@ -270,7 +286,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
               <label className="block text-lg font-semibold">Discounted Total</label>
               <h1>
 
-                {values.products.reduce((sum:number, product:any) => sum + product.total, 0) - values.discount}
+                {values.products.reduce((sum: number, product: any) => sum + product.total, 0) - values.discount}
               </h1>
             </div>
 
@@ -279,7 +295,7 @@ const InvoiceForm = ({ formikProps, customerData, productData }: FormProps) => {
               <h1>
                 {Math.max(
                   (values.products?.reduce(
-                    (sum:number, product:any) => sum + (product.total || 0), 0
+                    (sum: number, product: any) => sum + (product.total || 0), 0
                   ) || 0) -
                   (values.discount || 0) -
                   (parseFloat(values.onlineAmount || '0') + parseFloat(values.cashAmount || '0')),

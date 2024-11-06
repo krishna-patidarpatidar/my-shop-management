@@ -13,7 +13,7 @@ const shopApiSlice = createApi({
     },
   }),
 
-  tagTypes: ['customer,vender,product,invoice, dashbord'],
+  tagTypes: ['customer,vender,product,invoice, dashbord,transaction'],
   endpoints: () => ({})
 })
 

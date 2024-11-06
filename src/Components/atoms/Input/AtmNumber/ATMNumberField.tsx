@@ -63,7 +63,7 @@ const ATMNumberField: React.FC<Props> = ({
             )}
 
             <input
-                type="text" // Use "text" to allow entering "e" and validate manually
+                type="number" // Use "text" to allow entering "e" and validate manually
                 onChange={handleInputChange}
                 value={tempValue}
                 className={`flex-1 text-gray-900 ${sizeClasses[inputSize].input} border-2 rounded-md focus:outline-none`}

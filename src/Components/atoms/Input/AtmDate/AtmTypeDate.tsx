@@ -22,7 +22,6 @@ const ATMDateField: React.FC<DateComponentProps> = ({
   errorPosition = 'right-0', // Default error position
   ...inputProps
 }) => {
-  console.log(value, "Date value");
 
   // Size classes based on inputSize prop
   const sizeClasses = {

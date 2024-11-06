@@ -25,11 +25,16 @@ import VenderAddWrapper from "../Screens/Vender/Add/VenderAddWrapper";
 import VenderEditWrapper from "../Screens/Vender/Edit/VenderEditWrapper";
 import CustomerTracsactionWrapper from "../Screens/Customers/Transactions/customerTracsactionWrapper";
 import PamantInWrapper from "../Screens/Invoice/Pamant/PamantInWrapper";
+import RegisterWrapper from "../Screens/Register/RegisterWrapper";
 
 const pageRoute = createBrowserRouter([
     {
         path: '/',
         element: <WithoutLogin><LoginWrapper /></WithoutLogin>
+    },
+    {
+        path: '/register',
+        element: <WithoutLogin><RegisterWrapper /></WithoutLogin>
     },
 
     {

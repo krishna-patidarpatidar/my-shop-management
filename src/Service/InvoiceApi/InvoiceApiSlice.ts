@@ -34,9 +34,18 @@ const InviceApiSlice = shopApiSlice.injectEndpoints({
             }),
             invalidatesTags: ['invoice']
         }),
+        paymentIn: builder.mutation({
+            query: ({ INVId ,paymentData}: any) => ({
+                url: `/payment/pay/${INVId}`,
+                method: "POST",
+                body: paymentData
+            }),
+            invalidatesTags: ['invoice']
+        }),
     })
 })
 export const {
+    usePaymentInMutation,
     useCreateInvoiceMutation,
     useDeleteInvoiceMutation,
     useGetAllInvoiceQuery,

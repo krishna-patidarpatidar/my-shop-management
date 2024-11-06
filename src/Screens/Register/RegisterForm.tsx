@@ -21,11 +21,8 @@ const RegisterForm = ({ formikProps }) => {
                         value={values.name}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`border p-3 rounded-md w-full ${touched.name && errors.name ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500`}
                     />
-                    {touched.name && errors.name && (
-                        <span className="absolute text-red-600 text-xl mt-1 right-0">{errors.name}</span>
-                    )}
+                   
                 </div>
 
                 {/* Email Field */}
@@ -37,11 +34,8 @@ const RegisterForm = ({ formikProps }) => {
                         value={values.email}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`border p-3 rounded-md w-full ${touched.email && errors.email ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500`}
                     />
-                    {touched.email && errors.email && (
-                        <span className="absolute text-red-600 text-xl mt-1 right-0">{errors.email}</span>
-                    )}
+                   
                 </div>
 
                 {/* Mobile Field */}
@@ -53,11 +47,8 @@ const RegisterForm = ({ formikProps }) => {
                         value={values.mobile}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`border p-3 rounded-md w-full ${touched.mobile && errors.mobile ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500`}
                     />
-                    {touched.mobile && errors.mobile && (
-                        <span className="absolute text-red-600 text-xl mt-1 right-0">{errors.mobile}</span>
-                    )}
+                   
                 </div>
 
                 {/* Password Field */}
@@ -69,11 +60,8 @@ const RegisterForm = ({ formikProps }) => {
                         value={values.password}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`border p-3 rounded-md w-full ${touched.password && errors.password ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500`}
                     />
-                    {touched.password && errors.password && (
-                        <span className="absolute text-red-600 text-xl mt-1 right-0">{errors.password}</span>
-                    )}
+                  
                 </div>
 
                 {/* Confirm Password Field */}
@@ -85,11 +73,8 @@ const RegisterForm = ({ formikProps }) => {
                         value={values.confirmPassword}
                         onChange={handleChange}
                         onBlur={handleBlur}
-                        className={`border p-3 rounded-md w-full ${touched.confirmPassword && errors.confirmPassword ? 'border-red-500' : 'border-gray-300'} focus:ring-2 focus:ring-blue-500`}
                     />
-                    {touched.confirmPassword && errors.confirmPassword && (
-                        <span className="absolute text-red-600 text-xl mt-1 right-0">{errors.confirmPassword}</span>
-                    )}
+                   
                 </div>
 
                 {/* Submit Button */}

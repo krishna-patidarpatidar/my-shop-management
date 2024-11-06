@@ -19,8 +19,12 @@ const SideBar = ({ isSidebarOpen, closeSidebar }: any) => {
 
   return (
     <aside
-      className={`bg-gray-800 absolute z-20 lg:top-[148px] top-[149px] h-[750px] md:h-screen  text-white w-48 md:w-64 space-y-6  p-2   inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full '} transition-transform duration-300  ease-in-out md:relative md:translate-x-0 md:w-64 text-xl  md:text-4xl`}
-    >
+      className={`bg-gray-800 absolute z-20 lg:top-[148px] sm:top-[122px] md:top-[133px] top-[122px] h-[750px] md:h-screen  text-white w-48 md:w-64 space-y-6  p-2   inset-y-0 left-0 transform ${isSidebarOpen ? 'translate-x-0' : '-translate-x-full '} transition-transform duration-300  ease-in-out md:relative md:translate-x-0 md:w-64 text-xl  md:text-4xl`}
+      style={{
+        overflowY: 'auto',
+         /* Hide scrollbar for Internet Explorer and Edge */
+        'scrollbarWidth': 'none', /* Hide scrollbar for Firefox */
+      }}>
       <nav >
         <Link to={'deshBord'} onClick={closeSidebar}>
           <div className="flex py-2 md:py-4 gap-2 items-center  font-bold border-b-2">

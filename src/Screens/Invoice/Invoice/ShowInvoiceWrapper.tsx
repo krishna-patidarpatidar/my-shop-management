@@ -1,4 +1,4 @@
-import  { useRef } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import ShowInvoice from './ShowInvoice';
 import { useParams } from 'react-router-dom';
 import { useGetCustomerInvoiceQuery } from '../../../Service/InvoiceApi/InvoiceApiSlice';
@@ -7,19 +7,17 @@ import { useReactToPrint } from 'react-to-print';
 
 
 const ShowInviceWrapper = () => {
-  const contentToPrint = useRef(null);
+    const contentToPrint = useRef(null);
     const { billId } = useParams();
-    console.log(billId,"bill id")
-    const { data, isError, isLoading } = useGetCustomerInvoiceQuery({billId});
-    
-    
-    console.log(data, "data bill");
+    const { data, isError, isLoading } = useGetCustomerInvoiceQuery({ billId });
 
+    const [invoiceData, setInvoiceData] = useState([])
+    useEffect(() => {
+        setInvoiceData(data?.data)
+    }, [data])
     const handlePrint = useReactToPrint({
         documentTitle: "Print This Document",
         content: () => contentToPrint.current,
-        onBeforePrint: () => console.log("before printing..."),
-        onAfterPrint: () => console.log("after printing..."),
         removeAfterPrint: true,
     });
 
@@ -32,10 +30,10 @@ const ShowInviceWrapper = () => {
     }
 
     return (
-        <ShowInvoice 
-            data={data?.data} 
-            handlePrint={handlePrint} 
-            contentToPrint={contentToPrint} 
+        <ShowInvoice
+            data={invoiceData}
+            handlePrint={handlePrint}
+            contentToPrint={contentToPrint}
         />
     );
 }

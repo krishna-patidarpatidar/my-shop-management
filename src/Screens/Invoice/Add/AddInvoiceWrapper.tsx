@@ -33,9 +33,11 @@ const AddInvoiceWrapper = () => {
   const { data: productData } = useGetProductsQuery('');
   const [createBill] = useCreateInvoiceMutation();
   const navigate = useNavigate();
-
+  const [ product,setProduct]=useState([])
+   
   useEffect(() => {
     setCustomers((customerData as any)?.data || []);
+    setProduct((productData as any)?.data || [])
   }, [customerData]);
 
   const handleSubmit = async (values: InvoiceFormValues, { setSubmitting }: any) => {
@@ -75,7 +77,7 @@ const AddInvoiceWrapper = () => {
           <InvoiceForm
             formikProps={formikProps}
             customerData={customers}
-            productData={productData?.data || []}
+            productData={product || []}
           />
         )}
       </Formik>

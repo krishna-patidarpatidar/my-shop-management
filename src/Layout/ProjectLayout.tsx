@@ -7,9 +7,14 @@ const ProjectLayout = () => {
     <div className="">
       <Header />
 
+     <div className='flex '>
+      <span className='md:w-64'>
+
+      </span>
       <main className="flex-1 p-4 h-auto w-full ">
         <Outlet />
       </main>
+     </div>
     </div>
 
     // <div className=" max-h-screen relative">

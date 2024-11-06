@@ -24,7 +24,7 @@ const navigate=useNavigate()
     name: Yup.string().required('Product name is required'),
     sellingPrice: Yup.number().required('Selling price is required'),
     productCode: Yup.string().required('Product code is required'),
-    categoryId: Yup.string().required('Product code is required'),
+    categoryId: Yup.string().required('category id  is required'),
   });
 
   const handleSubmit = (values: any,{setSubmitting}:any) => {

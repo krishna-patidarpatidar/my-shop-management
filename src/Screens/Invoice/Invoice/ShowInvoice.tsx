@@ -66,14 +66,14 @@ const ShowInvoice: React.FC<ShowInvoiceProps> = ({ data, handlePrint, contentToP
                             </thead>
                             <tbody>
                                 {data?.products?.map((product: any, i: number) => (
-                                    <tr key={product._id}>
+                                    <tr key={product?._id}>
                                         <td className="p-4 text-left">{i + 1}</td>
                                         <th scope="row" className="px-6 py-4 font-medium text-gray-900 text-left">
-                                            {product.productId.name}
+                                            {product?.productId.name}
                                         </th>
-                                        <td className="px-6 py-4 text-left">{product.quantity}</td>
-                                        <td className="px-6 py-4 text-left">{product.productId.sellingPrice}</td>
-                                        <td className="px-6 py-4 text-left">{product.productId.sellingPrice*product.quantity}</td>
+                                        <td className="px-6 py-4 text-left">{product?.quantity}</td>
+                                        <td className="px-6 py-4 text-left">{product?.productId.sellingPrice}</td>
+                                        <td className="px-6 py-4 text-left">{product?.productId.sellingPrice*product.quantity}</td>
                                     </tr>
                                 ))}
                                 <tr>

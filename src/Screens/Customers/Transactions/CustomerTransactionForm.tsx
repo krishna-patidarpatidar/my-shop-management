@@ -4,7 +4,6 @@ import { formatDate } from '../../../Components/Molecule/DateHelper/DateHelper';
 
 
 const CustomerTransactionForm = ({ customerTransaction }: any) => {
-  console.log(customerTransaction)
   return (
     <div className="container mx-auto p-4 mt-40 text-xl relative">
 
@@ -36,9 +35,9 @@ const CustomerTransactionForm = ({ customerTransaction }: any) => {
                   <td className="py-3 px-6">{customer.invoiceNumber}</td>
                   <td className="py-3 px-6">{formatDate(customer.date)}</td>
                   <td className="py-3 px-6">{customer.customerName}</td>
-                  <td className="py-3 px-6">{customer.totalAmount}</td>
-                  <td className="py-3 px-6">{customer.receivedAmount}</td>
-                  <td className="py-3 px-6">{customer.dueAmount}</td>
+                  <td className="py-3 px-6 text-right ">{customer.totalAmount}</td>
+                  <td className="py-3 px-6 text-right">{customer.receivedAmount}</td>
+                  <td className="py-3 px-6 text-right">{customer.dueAmount}</td>
                   <td className="py-3 px-6">
                     <Link
                       to={`/admin/invoice/show-invoice/${customer.invoiceNumber}`}

@@ -1,38 +1,52 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import AtmTextField from '../../../Components/atoms/Input/AtmTypeText/AtmTextField';
 import AtmButtonField from '../../../Components/atoms/Button/AtmButtonField';
 import { useOutletContext } from 'react-router-dom';
 import { useGetCategoryQuery } from '../../../Service/Category/CategoryApiSlice';
 import SearchableSelectField from '../../../Components/atoms/Select/ATMSelectField';
+import { FormikProps } from 'formik';
 
-type FormikProps = {
-  values: {
-    name: string;
-    sellingPrice: string;
-    productCode: string;
-    categoryId: string;
-  };
-  handleChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  handleBlur: (e: React.FocusEvent<HTMLInputElement>) => void;
-  isSubmitting: boolean;
-  touched: any;
-  errors: any;
-};
+// Define form values interface for typing props
+interface ProductFormValues {
+  name: string;
+  sellingPrice: string;
+  productCode: string;
+  categoryId: string;
+}
 
-type Props = {
-  formikProps: FormikProps;
-};
+interface Props {
+  formikProps: FormikProps<ProductFormValues>;
+}
 
 const ProductForm: React.FC<Props> = ({ formikProps }) => {
-  const token = localStorage.getItem('auth');
+ const {
+    values,
+    handleChange,
+    handleBlur,
+    isSubmitting,
+    setFieldValue
+  
+  } = formikProps;
+  const [selectedCategory, setSelectedCategory] = useState(null);
 
+  const handleCategoryChange = (selectedOption: any) => {
+    setSelectedCategory(selectedOption);
+    setFieldValue('categoryId', selectedOption?._id);
+    setFieldValue('categoryName', selectedOption?.name);
+   
+  };
+  const [categories,setCategorys]=useState([])
   const { setEdit } = useOutletContext<{ setEdit: React.Dispatch<React.SetStateAction<boolean>> }>();
-  const { data,isLoading } = useGetCategoryQuery({ token })
+  const token = localStorage.getItem('auth') || '';
+  const { data, isLoading } = useGetCategoryQuery({ token });
+  
+  useEffect(()=>{
+    setCategorys(data?.data)
+  },[data])
+ 
 
-
-  const { values, handleChange, handleBlur, isSubmitting, touched, errors } = formikProps;
   return (
-    <div className="flex items-center  justify-center">
+    <div className="flex items-center justify-center">
       <div className="bg-white shadow-lg rounded-lg sm:w-[600px] w-full px-5 max-w-md">
         <span
           className="right-6 top-3 absolute text-2xl text-red-700 cursor-pointer p-3"
@@ -52,7 +66,6 @@ const ProductForm: React.FC<Props> = ({ formikProps }) => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-         
         </div>
 
         {/* Selling Price */}
@@ -65,7 +78,6 @@ const ProductForm: React.FC<Props> = ({ formikProps }) => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-         
         </div>
 
         {/* Product Code */}
@@ -78,32 +90,24 @@ const ProductForm: React.FC<Props> = ({ formikProps }) => {
             onChange={handleChange}
             onBlur={handleBlur}
           />
-         
         </div>
+
+        {/* Category Select */}
         <div className="md:mb-6 sm:mb-4">
           {isLoading ? (
             <div>Loading categories...</div>
           ) : (
-            // <select
-            //   name="categoryId"
-            //   value={values.categoryId}
-            //   onChange={handleChange}
-            //   onBlur={handleBlur}
-            //   className="w-full p-3 border rounded-lg focus:ring-2 focus:ring-blue-500 transition duration-150 ease-in-out"
-            // >
-            //   <option value="">Select a category</option>
-            //   {data?.data.map((category:any) => (
-            //     <option key={category._id} value={category._id}>
-            //       {category.categoryName}
-            //     </option>
-            //   ))}
-            // </select>
             <SearchableSelectField
-            
+            label='Select Category'
+              name="categoryId"
+              value={selectedCategory}
+              options={categories}
+              getOptionLabel={(option: any) => option.categoryName}
+              getOptionValue={(option: any) => option._id}
+              onChange={handleCategoryChange}
+              onBlur={handleBlur}
             />
-          )}
-          {touched.categoryId && errors.categoryId && (
-            <div className="text-red-600 absolute text-sm">{errors.categoryId}</div>
+          
           )}
         </div>
 
@@ -112,8 +116,9 @@ const ProductForm: React.FC<Props> = ({ formikProps }) => {
           <AtmButtonField
             label={isSubmitting ? 'Saving...' : 'Save Product'}
             disabled={isSubmitting}
-            className={`w-full py-3 bg-blue-600 text-white rounded-lg transition-all duration-200 ${isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-500'
-              }`}
+            className={`w-full py-3 bg-blue-600 text-white rounded-lg transition-all duration-200 ${
+              isSubmitting ? 'opacity-50 cursor-not-allowed' : 'hover:bg-blue-500'
+            }`}
             type="submit"
           />
         </div>

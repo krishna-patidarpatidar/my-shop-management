@@ -57,7 +57,7 @@ const SearchableSelectField: React.FC<SearchableSelectFieldProps> = ({
     inputSize = 'md',
     ...selectProps // Other props passed to React-Select
 }) => (
-    <div className={`flex flex-col gap-2`}>
+    <div className={`flex flex-col gap-2 relative`}>
         {label && (
             <div className={sizeClasses[inputSize].label}>
                 <ATMFieldLabel label={label} />
