@@ -4,7 +4,7 @@ import { formatDate } from '../../../Components/Molecule/DateHelper/DateHelper'
 const InvoiceList = ({ data, handleDelete }: any) => {
     const location = useLocation()
     return (
-        <div className=" md:max-w-[70%] mt-40 mx-auto">
+        <div className=" px-3 mt-40 mx-auto">
             {/* Conditionally render either the Outlet or the Invoice list */}
             {location.pathname !== '/admin/invoice' ? <div>
                 <Outlet />

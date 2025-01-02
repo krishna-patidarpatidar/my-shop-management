@@ -52,7 +52,7 @@ const ProductList: React.FC<Props> = ({ productData,deleteProduct }) => {
          
                 >
                   <option value="">Select a category</option>
-                  {data?.data.map((category) => (
+                  {data?.data?.map((category) => (
                     <option key={category._id} value={category._id}>
                       {category.categoryName}
                     </option>

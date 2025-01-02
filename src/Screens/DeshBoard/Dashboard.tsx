@@ -8,7 +8,7 @@ const Dashboard = ({ timeBillRange, timeTransactionRange, transactionData, custo
   const totalVender = venderCount ?.data ?.count ?? 0;  // Ensure dynamic customer count
 const totalBills=billCoutntData?.data ?? 0
   return (
-    <div className="grid grid-cols-1 gap-4 mt-40 p-4 md:grid-cols-2 items-start lg:max-w-[1800px] mx-auto lg:grid-cols-4">
+    <div className="grid grid-cols-1 gap-4 mt-40 p-4 md:grid-cols-2 items-start mx-auto lg:grid-cols-4">
 
       {/* Total Sales */}
       <div className="p-4 bg-white shadow rounded-lg flex justify-between">

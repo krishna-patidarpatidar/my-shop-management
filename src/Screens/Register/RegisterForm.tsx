@@ -4,8 +4,8 @@ import AtmPasswordField from '../../Components/atoms/Input/AtmTypePassword/AtmPa
 import AtmButtonField from '../../Components/atoms/Button/AtmButtonField';
 import { Link } from 'react-router-dom';
 
-const RegisterForm = ({ formikProps }) => {
-    const { values, errors, touched, handleChange, handleBlur, isSubmitting } = formikProps;
+const RegisterForm = ({ formikProps }:any) => {
+    const { values, handleChange, handleBlur, isSubmitting } = formikProps;
 
     return (
         <div className="flex justify-center items-center min-h-screen bg-gray-100">
